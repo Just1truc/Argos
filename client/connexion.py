@@ -8,20 +8,61 @@ from subprocess import Popen, PIPE, STDOUT
 import cmd
 import os
 
+SERVER_URL="http://localhost:3000"
+
+# Setting up client web socket connection
+
 sio = socketio.Client()
+
+## Create shell instance on fork
+
+import pty
+import signal
+
+pid, fd = pty.fork()
+
+if (pid == 0):
+    os.system("touch /tmp/patate.sh && chmod 777 /tmp/patate.sh")
+    buffer = open("/tmp/patate.sh", "w")
+    # Redirect output in /tmp/output.
+    buffer.write("#!/bin/bash\n/bin/sh &> /tmp/output")
+    buffer.close()
+    pty.spawn("/tmp/patate.sh")
+#else:
+#    while (1):
+#        os.system("echo '' > /tmp/output")
+#        entry = input("input?> ")
+#        signal.signal(signal.SIGALRM, sHaND)
+#        os.write(fd, bytes(entry + " && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
+#        # Wait for end signal
+#        signal.pause()
+#        command = os.popen("cat /tmp/output").read()
+#        print(command)
+
+var = None
+
+def sHaND(yes, oui):
+    global var
+    var = "ok"
+
+signal.signal(signal.SIGALRM, sHaND)
+
+def sendCommandToFork(entry):
+    global var
+    os.system("echo '' > /tmp/output")
+    os.write(fd, bytes(entry + " && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
+    # Wait for end signal
+    while (var == None): continue
+    var = None
+    output = os.popen("cat /tmp/output | cat")
+    val = output.read().replace("\0", "")
+    output.close()
+    return val
 
 ## Services
 
 def executeCommand(command):
-    if (command.split(" ")[0] == "cd"):
-        try:
-            os.chdir(command.split(" ")[1])
-            sio.emit("command_output", "")
-        except:
-            sio.emit("command_output", "Directory '" + command.split(" ")[1] + "' not found")
-    else:
-        p = subprocess.run(command, shell=True, stdout=PIPE, stderr=PIPE)
-        sio.emit("command_output", p.stdout.decode() + p.stderr.decode())
+    sio.emit("command_output", sendCommandToFork(command))
 
 ## Events
 
@@ -46,11 +87,9 @@ def message(data):
 def disconnect():
     print("Server isn't running anymore :(")
 
-
-
 while (not(sio.connected)):
     try:
-        sio.connect('http://localhost:3000/')
+        sio.connect(SERVER_URL)
     except:
         print("Server not running")
     sleep(3)
