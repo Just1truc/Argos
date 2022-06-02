@@ -3,7 +3,7 @@ from time import sleep
 import socketio
 import os
 
-SERVER_URL="http://localhost:3000"
+SERVER_URL="https://hungry-ellis.51-38-225-77.plesk.page"
 
 # Setting up client web socket connection
 
