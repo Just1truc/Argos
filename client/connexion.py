@@ -14,6 +14,10 @@ SERVER_URL="http://localhost:3000"
 
 sio = socketio.Client()
 
+## Cleaning output file of child process
+
+os.system("echo '' > /tmp/output")
+
 ## Create shell instance on fork
 
 import pty
@@ -28,16 +32,6 @@ if (pid == 0):
     buffer.write("#!/bin/bash\n/bin/sh &> /tmp/output")
     buffer.close()
     pty.spawn("/tmp/patate.sh")
-#else:
-#    while (1):
-#        os.system("echo '' > /tmp/output")
-#        entry = input("input?> ")
-#        signal.signal(signal.SIGALRM, sHaND)
-#        os.write(fd, bytes(entry + " && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
-#        # Wait for end signal
-#        signal.pause()
-#        command = os.popen("cat /tmp/output").read()
-#        print(command)
 
 var = None
 
@@ -49,15 +43,20 @@ signal.signal(signal.SIGALRM, sHaND)
 
 def sendCommandToFork(entry):
     global var
+    size = os.stat("/tmp/output").st_size
     os.system("echo '' > /tmp/output")
-    os.write(fd, bytes(entry + " && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
+    os.write(fd, bytes(entry + " && echo '' && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
     # Wait for end signal
     while (var == None): continue
     var = None
-    output = os.popen("cat /tmp/output | cat")
-    val = output.read().replace("\0", "")
-    output.close()
-    return val
+    buffer = open("/tmp/output", "r")
+    buffer.seek(size)
+    output = buffer.read()
+    buffer.close()
+    #output = os.popen("cat /tmp/output | cat")
+    #val = output.read().replace("\0", "")
+    #output.close()
+    return output
 
 ## Services
 

@@ -15,9 +15,16 @@ dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
 
-app.use('/', authRoutes);
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization, X-Auth-Token');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    if (req.method === 'OPTIONS')
+        res.status(200).send();
+    next();
+});
 
-global.clients = {};
+app.use('/', authRoutes);
 
 app.use('/clients',
 checkToken,
@@ -28,11 +35,19 @@ checkToken,
 checkClientId,
 servicesRoutes);
 
+app.use((req, res, next) => {
+    res.status(404).send({
+        "msg" : "Not found"
+    });
+})
+
 const server = app.listen(process.env.PORT || 3000, () => {
     console.log("Server Running on port : " + process.env.PORT);
 });
 
 const io = require('socket.io')(server);
+
+global.clients = {};
 
 var client_id = 1;
 
