@@ -1,0 +1,137 @@
+.background {
+    background-color: #0d0d0d;
+    background-size: cover;
+    min-height: 100%;
+    min-width: 100%;
+    width: 100%;
+    height: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+}
+
+.search {
+    display: flex;
+    position: absolute;
+    top: 2vh;
+    left: 35vw;
+}
+
+.browseheader {
+    z-index: 10;
+    position: fixed;
+    display: flex;
+    justify-content: row;
+    align-items: center;
+    background-color: #16191d;
+    width: 99.2vw;
+    height: 7vh;
+}
+
+.browsetitle {
+    display: flex;
+    align-items: center;
+    color: #3bcf47;
+    font-weight: 600;
+    font-size: 2.5em;
+    padding-top: 0.5vh;
+    padding-left: 0.5vw;
+}
+
+.searchbar {
+    position: absolute;
+    width: 30em;
+    height: 2em;
+    background-color: #16191d;
+    color: white;
+    outline: none;
+    border-bottom: 10em white;
+}
+
+.searchbar::placeholder {
+    color: #888888;
+}
+
+.loupe {
+    position: absolute;
+    left: 30.1em;
+    width: 2em;
+    height: 2em;
+}
+
+.loupe:hover {
+    filter: brightness(300%);
+}
+
+.loupeimage {
+    filter: brightness(60%);
+}
+
+.category {
+    color: white;
+    font-size: 1.5em;
+    margin-right: 4vh;
+    filter: brightness(70%);
+}
+
+.category:hover {
+    filter: brightness(300%);
+}
+
+.categories {
+    display: flex;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.clientcard {
+    border-radius: 20px;
+}
+
+.inputtitle {
+    z-index: 2;
+    color: #3bcf47;
+}
+
+.logininput {
+    z-index: 2;
+    color: #3bcf47;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 30vw;
+    height: 40vh;
+    margin-top: 30vh;
+    margin-left: 35vw;
+    background-color: #000000;
+    border-radius: 20px;
+}
+
+.datainput {
+    z-index: inherit;
+    padding-left: 2vw;
+    height: 80px;
+    margin-bottom: 1vh;
+    border: 0px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loginbutton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.loginbutton:hover {
+    cursor:pointer;
+    filter:brightness(200%);
+    transition: all 0.6s;
+}
