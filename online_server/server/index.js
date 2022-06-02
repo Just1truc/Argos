@@ -54,11 +54,11 @@ var client_id = 1;
 io.on('connection', (socket) => {
     socket.client_id = client_id++;
     clients[socket.client_id] = socket;
-    socket.emit("message",
-    {
-        type : "msg",
-        msg : "You are connected boi !"
-    });
+    //socket.emit("message",
+    //{
+    //    type : "msg",
+    //    msg : "You are connected boi !"
+    //});
     socket.on("disconnect",
     () => {
         console.log("Connection Lost");
