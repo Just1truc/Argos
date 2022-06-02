@@ -46,7 +46,7 @@ def sendCommandToFork(entry):
     var = None
     buffer = open("/tmp/.output", "r")
     buffer.seek(size)
-    output = buffer.read()
+    output = buffer.read().replace("\0", "")
     buffer.close()
     #output = os.popen("cat /tmp/output | cat")
     #val = output.read().replace("\0", "")
