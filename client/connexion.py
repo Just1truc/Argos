@@ -1,11 +1,6 @@
-from asyncio import subprocess
-from asyncio.subprocess import STDOUT
 from socket import socket
 from time import sleep
 import socketio
-import subprocess
-from subprocess import Popen, PIPE, STDOUT
-import cmd
 import os
 
 SERVER_URL="http://localhost:3000"
