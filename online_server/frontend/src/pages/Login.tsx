@@ -15,14 +15,15 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import env from "react-dotenv";
 
-const Login = (): JSX.Element => {
-    const [email, setEmail] = useState('');
+const Login = (props: any): JSX.Element => {
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const toast = useToast();
 
     const handleLogin = async () => {
-        if (!email || !password) {
+        if (!username || !password) {
             toast({
                 title: "Error",
                 description: "Please fill all the fields",
@@ -33,38 +34,29 @@ const Login = (): JSX.Element => {
             });
             return;
         }
-        try {
-            const result = await axios({
-                method: "post",
-                url: "http://localhost:3000/login",
-                data: {
-                    email: email,
-                    password: password
-                }
-            });
-            if (result.status !== 200 || !result.data.token) {
-                toast({
-                    title: "Error",
-                    description: "Invalid credentials",
-                    position: "bottom",
-                    status: "error",
-                    duration: 5000,
-                    isClosable: true
-                });
-                return;
-            }
-            localStorage.setItem("user_token", result.data.token);
-            window.location.href = "/dashboard";
-        } catch (error) {
+        axios.post(`${env.REACT_APP_API_URL}login`,
+        {
+            "username": username,
+            "password": password
+        })
+        .then((result) => {
+          props.setConnection();
+          localStorage.setItem("user_token", result.data.token);
+          window.location.href = "/clients";
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
             toast({
                 title: "Error",
-                description: "An error occured",
-                position: "bottom",
+                description: "Invalid credentials",
+                position: "bottom-right",
                 status: "error",
                 duration: 5000,
                 isClosable: true
             });
-        }
+          }
+          }
+        );
     }
 
   return (
@@ -87,9 +79,9 @@ const Login = (): JSX.Element => {
             p={8}
           >
             <Stack spacing={4}>
-              <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
-                <Input type="email" value={email} onChange={(e: any) => setEmail(e.target.value)} />
+              <FormControl id="username">
+                <FormLabel>Username</FormLabel>
+                <Input type="username" value={username} onChange={(e: any) => setUsername(e.target.value)} />
               </FormControl>
               <FormControl id="password">
                 <FormLabel>Password</FormLabel>
@@ -110,7 +102,7 @@ const Login = (): JSX.Element => {
                   _hover={{
                     bg: "blue.500",
                   }}
-                  onClick={async () => await handleLogin()}
+                  onClick={() => handleLogin()}
                 >
                   Sign in
                 </Button>

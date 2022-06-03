@@ -10,7 +10,7 @@ const Card = (props: any): JSX.Element => {
 
     return(
         <>
-            <Button height='100px' width='300px' border='2px' borderColor='grey'>
+            <Button height='100px' width='300px' border='2px' borderColor='grey' onClick={props.trigger()} >
                 <Center >
                     <Stack direction='row' spacing={8}>
                         <Center>

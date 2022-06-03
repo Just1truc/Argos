@@ -5,20 +5,47 @@ import { Center,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Card from "../components/card";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import env from "react-dotenv";
 
 const Client = (): JSX.Element => {
 
-    const name1 = "Paul";
-    const name2 = "Jack";
-    const name3 = "Mathilde";
-    const name4 = "John";
-    const name5 = "Jane";
-    const name6 = "Jenny";
-    const name7 = "David";
-    const name8 = "Joshua";
-    const name9 = "Léo";
-    const name10 = "Léa";
-    const name11 = "Justin";
+    const [clients, setClients] = useState<any[]>([]);
+    const [selectedClient, setSelectedClient] = useState(0);
+
+    function createCards() {
+        const cards = [];
+        for (let item of clients) {
+            cards.push(
+                <Card
+                    name={item.name}
+                    trigger={() => setSelectedClient(item.id)}
+                />
+            );
+        }
+        return cards;
+    }
+
+    function getClients() {
+        axios.get(`${env.REACT_APP_API_URL}clients`,
+            {headers :
+                {
+                    "Authorization": `Bearer ${localStorage.getItem("user_token")}`
+                }
+            }
+        )
+        .then((result) => {
+            setClients(result.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+
+    useEffect(() => {
+        getClients();
+    }, []);
 
 
     return (
@@ -26,18 +53,25 @@ const Client = (): JSX.Element => {
             <Navbar/>
             <Center>
                 <Grid templateColumns="repeat(4, 1fr)" gap="3" marginTop="4%">
-                    <Card name={name1}/>
-                    <Card name={name2}/>
-                    <Card name={name3}/>
-                    <Card name={name4}/>
-                    <Card name={name5}/>
-                    <Card name={name6}/>
-                    <Card name={name7}/>
-                    <Card name={name8}/>
-                    <Card name={name9}/>
-                    <Card name={name10}/>
-                    <Card name={name11}/>
+                    {
+                    clients.length === 0 ?
+                    <></>
+                    :
+                    createCards()
+                    }
                 </Grid>
+                {clients.length === 0 ?
+                <>
+                    <p style={{
+                        color:"white",
+                        marginTop:"4em",
+                        fontWeight:"bold",
+                        fontSize:"25px"}}
+                    >No clients connected
+                    </p>
+                </>
+                :
+                <></>}
             </Center>
         </>
     );
