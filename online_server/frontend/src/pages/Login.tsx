@@ -26,9 +26,9 @@ const Login = (): JSX.Element => {
             toast({
                 title: "Error",
                 description: "Please fill all the fields",
-                position: "bottom",
+                position: "bottom-right",
                 status: "error",
-                duration: 5000,
+                duration: 2000,
                 isClosable: true
             });
             return;

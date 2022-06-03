@@ -8,6 +8,7 @@ const Router = (): JSX.Element => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/" element={<Login />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/shell" element={<Shell />} />
                 {/* 404 Not Found page */}
