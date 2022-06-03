@@ -1,6 +1,7 @@
 # Argos
 
 *Can see everything, beware of its omniscience, kneel before its greatness.*
+
 ⚠️ *Do not use for illegal purposes*
 ## Summary
 
