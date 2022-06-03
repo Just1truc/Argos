@@ -18,15 +18,21 @@ os.system("echo '' > /tmp/.output")
 import pty
 import signal
 
-pid, fd = pty.fork()
+pid, fd = 0, 0
 
-if (pid == 0):
-    os.system("touch /tmp/.patate.sh && chmod 777 /tmp/.patate.sh")
-    buffer = open("/tmp/.patate.sh", "w")
-    # Redirect output in /tmp/output.
-    buffer.write("#!/bin/bash\n/bin/bash &> /tmp/.output")
-    buffer.close()
-    pty.spawn("/tmp/.patate.sh")
+def createForkShell():
+    global pid, fd
+    pid, fd = pty.fork()
+
+    if (pid == 0):
+        os.system("touch /tmp/.patate.sh && chmod 777 /tmp/.patate.sh")
+        buffer = open("/tmp/.patate.sh", "w")
+        # Redirect output in /tmp/output.
+        buffer.write("#!/bin/bash\n/bin/bash &> /tmp/.output")
+        buffer.close()
+        pty.spawn("/tmp/.patate.sh")
+
+createForkShell()
 
 var = None
 
@@ -39,7 +45,11 @@ signal.signal(signal.SIGALRM, sHaND)
 # echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS -p '' 
 
 def sendCommandToFork(entry):
-    global var
+    global var, pid, fd
+    if (entry.replace("\n", "") == "stop"):
+        os.kill(pid, signal.SIGKILL)
+        createForkShell()
+        return "stop"
     size = os.stat("/tmp/.output").st_size
     os.system("echo '' > /tmp/.output")
     os.write(fd, bytes(entry + " && echo '' && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
