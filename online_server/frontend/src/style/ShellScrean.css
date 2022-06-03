@@ -10,25 +10,36 @@
 }
 
 .prompt--cmd {
+    display: flex;
     position: absolute;
-    bottom: 0;
-    z-index: 2;
+    bottom: 0%;
     width: 100%;
-    height: 2em;
     background-color: #36454F;
 }
 
 input {
-    width: 100%;
+    height: 2em;
+    background-color: #36454F;
+    vertical-align: center;
     height: 100%;
     background: transparent;
     border: none;
     outline: none;
-    padding-left: 10px;
 }
-
 
 input :focus {
     outline: none;
     border: none;
+}
+
+.prompt--cmd--user {
+    user-select: none;
+    padding: 1px;
+    width: 65px;
+    margin-right: 7px;
+    border-right: 1px dashed white;
+}
+
+span :hover {
+    color: rebeccapurple;
 }

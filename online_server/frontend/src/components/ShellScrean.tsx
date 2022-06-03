@@ -3,25 +3,18 @@ import { useState } from "react";
 import axios from "axios";
 import "../style/ShellScrean.css";
 
-const ShellScrean = (props:any): JSX.Element => {
-    const [cmd, setCmd] = useState({
-        command: "",
-        output: ""
-    });
-    const [prompt, setPrompt] = useState("");
-    const [sudo, setSudo] = useState("User");
-
+const ShellScrean = (props: any): JSX.Element => {
     return (
-        <>
+        <main>
             <div className="prompt">
+                <div className="output">
+                </div>
                 <div className="prompt--cmd">
-                    <input type="text" value={prompt} onChange={(e) => setPrompt(e.target.value)} />
+                    <span className="prompt--cmd--user" onClick={props.HandleSudo}>@{props.sudo ? "Sudo" : "User"}</span>
+                    <input type="text" value={props.prompt} onChange={(e) => props.Handleprompt(e.target.value)} />
                 </div>
             </div>
-            <div className="output">
-                {cmd.output}
-            </div>
-        </>
+        </main>
     );
 }
 
