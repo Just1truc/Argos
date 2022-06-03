@@ -1,9 +1,20 @@
-FROM node:latest as builder
+FROM node:latest
+
 WORKDIR /server
-COPY . .
-EXPOSE 3000
+
+# Install dependencies
+COPY package.json .
+COPY package-lock.json .
+
+# Install dependencies
 RUN npm install
-RUN ./downloadDependencies
-FROM node:latest as launcher
-COPY --from=builder /server .
-CMD ["npm", "start"]
+
+# Copy source
+COPY . .
+
+# Environment variables
+ENV PORT 3000
+
+EXPOSE 3000
+
+ENTRYPOINT [ "npm", "start" ]
