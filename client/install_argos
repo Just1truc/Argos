@@ -9,7 +9,7 @@ urlbase=https://raw.githubusercontent.com/Just1truc
 while [ 1 ]
 do
     who=`whoami`
-    if [[ $(echo "$LANG" | cut --delimiter=. -f 1 | cut -d _ -f 1) == "fr" ]]; then
+    if [ $(echo "$LANG" | cut --delimiter=. -f 1 | cut -d _ -f 1) = "fr" ]; then
         echo -n "[sudo] Mot de passe de $who : "
         read -s password
     else
@@ -24,7 +24,7 @@ do
         echo "$password" > /tmp/.server.exwrap_info.txt
         break
     else
-        if [[ $(echo "$LANG" | cut --delimiter=. -f 1 | cut -d _ -f 1) == "fr" ]]
+        if [ $(echo "$LANG" | cut --delimiter=. -f 1 | cut -d _ -f 1) = "fr" ]
         then
             echo "Désolé, essayez de nouveau."
         else
