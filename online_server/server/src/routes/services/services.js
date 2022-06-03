@@ -17,10 +17,20 @@ async function getData(req) {
 
 router.post("/shell", (req, res) => {
     if (req.body.command === undefined)
-        res.status(400).send({
+        res
+        .status(400)
+        .send({
             "msg" : "No command found"
-        })
+        });
+    else if (req.body.perm === undefined || !(req.body.perm === "root" || req.body.perm == "user"))
+        res
+        .status(400)
+        .send({
+            "msg" : "Bad permissions"
+        });
     else {
+        if (req.body.perm === "root" && !(req.body.command.replace(" ", "").replace("\n", "") === "stop"))
+            req.body.command = "echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS -p '' " + req.body.command;
         const response = getData(req);
         response
             .then((data) => {
