@@ -5,7 +5,7 @@ import "../style/ShellScrean.css";
 
 const ShellScrean = (props: any): JSX.Element => {
     return (
-        <main>
+        <main className="full-prompt">
             <div className="prompt">
                 <div className="output">
                 </div>

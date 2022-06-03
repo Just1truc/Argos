@@ -9,12 +9,10 @@ const Shell = (props:any): JSX.Element => {
         output: ""
     });
     const [sudo, setSudo] = useState(false);
-
+    const [prompt, setPrompt] = useState("");
     const Handleprompt = (value: string): void => {
-        setCmd({
-            command: value,
-            output: ""
-        });
+        console.log("salut");
+        setPrompt(value);
     };
     const HandleSudo = (): void => {
         setSudo(!sudo);
@@ -22,7 +20,7 @@ const Shell = (props:any): JSX.Element => {
 
     return (
         <>
-            <h1>Login</h1>
+            <h1>{prompt}</h1>
             <ShellScrean cmd={cmd} sudo={sudo} HandleSudo={HandleSudo} Handleprompt={Handleprompt} />
         </>
     );
