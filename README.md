@@ -3,6 +3,7 @@
 *Can see everything, beware of its omniscience, kneel before its greatness.*
 
 ⚠️ *Do not use for illegal purposes*
+*THIS PROJECT IS IN PROGRESS. The backend api is functionnal but the frontend is still in developpement*
 ## Summary
 
 - [**Presentation**](#presentation)
