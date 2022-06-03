@@ -16,7 +16,7 @@ do
         echo -n "[sudo] password for $who : "
         read -s password
     fi
-    try=`echo $password | sudo -S ls &> /dev/null`
+    echo "$password" | sudo -S ls &> /dev/null
     output=$?
     echo ""
     if [ $output -eq 0 ]
