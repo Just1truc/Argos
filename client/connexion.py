@@ -40,7 +40,7 @@ def sendCommandToFork(entry):
     global var
     size = os.stat("/tmp/.output").st_size
     os.system("echo '' > /tmp/.output")
-    os.write(fd, bytes("echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS " + entry + " && echo '' && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
+    os.write(fd, bytes("echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS -p '' " + entry + " && echo '' && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
     # Wait for end signal
     while (var == None): continue
     var = None
