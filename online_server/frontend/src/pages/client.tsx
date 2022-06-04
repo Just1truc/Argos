@@ -20,7 +20,7 @@ const Client = (): JSX.Element => {
         for (let item of clients) {
             cards.push(
                 <Card
-                    name={item.name}
+                    name={item.name} id={item.id}
                     trigger={() => {
                         window.location.href = `/services/${item.id}`;
                     }}
