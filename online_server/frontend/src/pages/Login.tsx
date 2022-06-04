@@ -34,7 +34,7 @@ const Login = (props: any): JSX.Element => {
             });
             return;
         }
-        axios.post(`${env.REACT_APP_API_URL}login`,
+        axios.post(`${env.REACT_APP_API_URL}/login`,
         {
             "username": username,
             "password": password

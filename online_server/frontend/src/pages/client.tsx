@@ -13,7 +13,6 @@ import env from "react-dotenv";
 const Client = (): JSX.Element => {
 
     const [clients, setClients] = useState<any[]>([]);
-    const [selectedClient, setSelectedClient] = useState(0);
     const { colorMode, toggleColorMode } = useColorMode();
 
     function createCards() {
@@ -22,7 +21,10 @@ const Client = (): JSX.Element => {
             cards.push(
                 <Card
                     name={item.name}
-                    trigger={() => setSelectedClient(item.id)}
+                    trigger={() => {
+                        window.location.href = `/services/${item.id}`;
+                    }}
+                    key={item.id}
                 />
             );
         }
@@ -30,7 +32,7 @@ const Client = (): JSX.Element => {
     }
 
     function getClients() {
-        axios.get(`${env.REACT_APP_API_URL}clients`,
+        axios.get(`${env.REACT_APP_API_URL}/clients`,
             {headers :
                 {
                     "Authorization": `Bearer ${localStorage.getItem("user_token")}`

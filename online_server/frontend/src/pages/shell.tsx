@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import axios from "axios";
 import ShellScrean from "../components/ShellScrean";
 
@@ -96,6 +97,7 @@ const Shell = (props:any): JSX.Element => {
         <>
             <h1>{prompt}</h1>
             <ShellScrean history={historie} sudo={sudo} HandleSudo={HandleSudo} Handleprompt={Handleprompt} />
+            <Outlet/>
         </>
     );
 }

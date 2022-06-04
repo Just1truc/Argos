@@ -6,6 +6,7 @@ import NotFound from "../pages/404";
 import Shell from "../pages/shell";
 import Client from "../pages/client";
 import { decodeToken, isExpired } from 'react-jwt';
+import Services from '../pages/Services';
 
 const Router = (): JSX.Element => {
 
@@ -42,6 +43,15 @@ const Router = (): JSX.Element => {
                     <Client />
                     :
                     <Navigate to='/login'/>} />
+                <Route path="/services/:id/*" element={
+                    (setUp() === true) ?
+                    <Routes>
+                        <Route path="/" element={<Services />} />
+                        <Route path="/shell" element={<Shell />} />
+                    </Routes>
+                    :
+                    <Navigate to='/login'/>
+                } />
                 {/* 404 Not Found page */}
                 <Route element={<NotFound />} />
                 <Route path='*' element={<NotFound />} />
