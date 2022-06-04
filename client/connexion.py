@@ -18,6 +18,8 @@ os.system("echo '' > /tmp/.output")
 import pty
 import signal
 
+var, pid, fd = None, None, None
+
 def createForkShell():
     global pid, fd
     pid, fd = pty.fork()
@@ -40,17 +42,19 @@ def sHaND(yes, oui):
 
 signal.signal(signal.SIGALRM, sHaND)
 
+my_pid = os.getpid()
+
 # prefix to use a command as a root user echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS -p '' 
 
 def sendCommandToFork(entry):
     global var, pid, fd
     if (entry.replace("\n", "") == "stop"):
-        os.kill(pid, signal.SIGKILL)
+        os.system("kill -TERM " + str(pid))
         createForkShell()
         return "stop"
     size = os.stat("/tmp/.output").st_size
     os.system("echo '' > /tmp/.output")
-    os.write(fd, bytes(entry + " && echo '' && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
+    os.write(fd, bytes(entry + "; echo ''; kill -ALRM " + str(my_pid) + "\n", encoding="utf-8"))
     # Wait for end signal
     while (var == None): continue
     var = None
