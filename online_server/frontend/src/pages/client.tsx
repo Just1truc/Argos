@@ -2,6 +2,7 @@ import { Center,
     Flex,
     Grid,
     Stack,
+    useColorMode
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Card from "../components/card";
@@ -13,6 +14,7 @@ const Client = (): JSX.Element => {
 
     const [clients, setClients] = useState<any[]>([]);
     const [selectedClient, setSelectedClient] = useState(0);
+    const { colorMode, toggleColorMode } = useColorMode();
 
     function createCards() {
         const cards = [];
@@ -63,7 +65,7 @@ const Client = (): JSX.Element => {
                 {clients.length === 0 ?
                 <>
                     <p style={{
-                        color:"white",
+                        color:!(colorMode === 'light') ? "white": "black",
                         marginTop:"4em",
                         fontWeight:"bold",
                         fontSize:"25px"}}
