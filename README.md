@@ -73,6 +73,14 @@ The sockets are listenning to events and so we are using that so in case of deco
 
 The /shell endpoint use the socket io server sending a command to the client and waiting for a response to send back the information to the frontend.
 
+FrontEnd endpoints:
+| Endpoint | Protected |
+|----------|-----------|
+|/login    | NO        |
+|/clients  | YES       |
+|/services/:id| YES    |
+|/services/:id/shell| YES |
+
 ## Installation
 
 In order to use the project, you need to have a script that people will run.
