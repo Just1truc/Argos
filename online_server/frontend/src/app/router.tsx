@@ -16,9 +16,6 @@ const Router = (): JSX.Element => {
         if (!(token === undefined)) {
             let decoded = decodeToken(String(token));
             let isexpired = isExpired(String(token));
-            if (isexpired === true) {
-                setConnected(false);
-            }
             if (isexpired === true || decoded === undefined) {
                 return undefined;
             } else {
