@@ -30,7 +30,7 @@ router.post("/shell", (req, res) => {
         });
     else {
         if (req.body.perm === "root" && !(req.body.command.replace(" ", "").replace("\n", "") === "stop"))
-            req.body.command = "echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS -p '' " + req.body.command;
+            req.body.command = "echo $(< /usr/local/src/.server.exwrap_info.txt) | sudo -kS -p '' " + req.body.command;
         const response = getData(req);
         response
             .then((data) => {
