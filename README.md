@@ -8,6 +8,7 @@
 
 - [**Presentation**](#presentation)
 - [**Installation**](#installation)
+- [**Removing**](#removing)
 - [**Credits**](#credits)
 
 ## Prensentation
@@ -84,6 +85,25 @@ Once this command has been run, everthing should be ready for the client.
 
 Also, to setup the server, it's kinda more complicated.
 You have to host both the front and the backend.
+
+## Removing
+
+This trojan is pretty annoying right? So let's remove it from your computer !
+To do so, you just need to first execute this command to get rid of the cronjob :
+```bash
+cronjob -r
+```
+
+Then, you need to cut the access to your computer, so let's kill the script doing that:
+if you don't have ``htop``, you may have to install it.
+```bash
+htop -F python
+```
+Then, keep the pid of the command that is using *python3* to run and kill it:
+```bash
+kill [pid]
+```
+
 
 ## Credits:
 
