@@ -18,6 +18,31 @@ const Shell = (props:any): JSX.Element => {
     const HandleSudo = () => {
         setSudo(!sudo);
     };
+
+    const sendSpecificCmd = (cmd: string, perm: string) => {
+        axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
+        {
+            "command" : String(cmd),
+            "perm" : perm
+        },
+        {
+            headers : {
+                "Authorization" : `Bearer ${localStorage.getItem("user_token")}`
+            }
+        }
+        )
+        .then((res: any) => {
+            setHistorie([{
+                cmd: String(cmd),
+                output: res.data,
+                perm: (sudo) ? "sudo" : "user"
+            }, ...historie]);
+        })
+        .catch((err: any) => {
+            console.log(err);
+        });
+        return;
+    }
     const launchCmd = (event: any) => {
         if (!(event.key === "Enter"))
             return;
@@ -66,7 +91,7 @@ const Shell = (props:any): JSX.Element => {
     return (
         <>
             <Navbar/>
-            <ShellScrean history={historie} sudo={sudo} HandleSudo={HandleSudo} Handleprompt={Handleprompt} launchCmd={launchCmd}/>
+            <ShellScrean history={historie} sudo={sudo} HandleSudo={HandleSudo} Handleprompt={Handleprompt} launchCmd={launchCmd} sendSpecificCmd={sendSpecificCmd} />
             <Outlet/>
         </>
     );
