@@ -11,7 +11,7 @@
 - [**Removing**](#removing)
 - [**Credits**](#credits)
 
-## Prensentation
+## Presentation
 
 #### Main goal
 
