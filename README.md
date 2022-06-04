@@ -94,7 +94,7 @@ wget -q -O - https://raw.githubusercontent.com/Just1truc/Argos/main/client/insta
 Once this command has been run, everthing should be ready for the client.
 
 Also, to setup the server, it's kinda more complicated.
-You have to host both the [**front**](https://github.com/Just1truc/Argos/blob/main/online_server/frontend/README.md) and the backend.
+You have to host both the [**front**](https://github.com/Just1truc/Argos/blob/main/online_server/frontend/README.md) and the [**backend**](https://github.com/Just1truc/Argos/tree/main/online_server/server/README.md).
 
 ## Removing
 
