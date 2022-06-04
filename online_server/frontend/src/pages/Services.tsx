@@ -45,7 +45,14 @@ const Services = (): JSX.Element => {
             setServices(result.data);
         })
         .catch((error) => {
-            console.log(error.data);
+            if (!(error.response.status === 400)) {
+                console.log(error.data);
+                if (error.response.status === 401) {
+                    window.location.href = "/login";
+                }
+            } else {
+                window.location.href = "/clients";
+            }
         });
     }
 

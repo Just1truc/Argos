@@ -1,5 +1,5 @@
 .full-prompt{
-    height: 90vh;
+    height: 80vh;
 }
 
 .prompt {
@@ -83,9 +83,12 @@ span :hover {
 }
 
 .histo {
-    margin-top: 0.5em;
-    margin-left: 0.5em;
+    margin-left: 0em;
 }
 .histo--cmd{
     margin-left: 1em;
+    color: lightskyblue;
+}
+.histo--output {
+    margin-left: 1.5em;
 }

@@ -1,18 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import axios from "axios";
 import ShellScrean from "../components/ShellScrean";
+import Navbar from "../components/Navbar";
 
 const Shell = (props:any): JSX.Element => {
     const { id } = useParams();
-    const [historie, setHistorie] = useState([
-    {
-        cmd: "ouais ouais ouais",
-        output: "asdasdsadsadsadasd"
-    }
-    ]);
+    const [historie, setHistorie] = useState([{cmd: "example", output: "output", perm: "user"}]);
     const [sudo, setSudo] = useState(false);
     const [prompt, setPrompt] = useState("");
 
@@ -28,7 +24,7 @@ const Shell = (props:any): JSX.Element => {
         
         axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
         {
-            "command" : prompt,
+            "command" : String(prompt),
             "perm" : (sudo) ? "root" : "user"
         },
         {
@@ -39,18 +35,37 @@ const Shell = (props:any): JSX.Element => {
         )
         .then((res: any) => {
             setHistorie([{
-                cmd: prompt,
-                output: res.data
+                cmd: String(prompt),
+                output: res.data,
+                perm: (sudo) ? "sudo" : "user"
             }, ...historie]);
             setPrompt("");
+            event.target.value = "";
         })
         .catch((err: any) => {
             console.log(err);
         });
         return;
     }
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_URL}/services/${id}`, {
+            headers : {
+                "Authorization" : `Bearer ${localStorage.getItem("user_token")}`
+            }
+        })
+        .catch((err: any) => {
+            console.log(err);
+            if (err.response.status === 401)
+                window.location.href = "/login";
+            else if (err.response.status === 400)
+                window.location.href = "/clients";
+        });
+    }, []);
+
     return (
         <>
+            <Navbar/>
             <ShellScrean history={historie} sudo={sudo} HandleSudo={HandleSudo} Handleprompt={Handleprompt} launchCmd={launchCmd}/>
             <Outlet/>
         </>
