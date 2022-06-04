@@ -15,6 +15,8 @@
 
 #### Main goal
 
+This program work on **Linux** distrubtion.
+
 The main goal of this project is to show how frighteningly easy it is to create a program that can access to another machine.
 This project is a [**trojan**](https://us.norton.com/internetsecurity-malware-what-is-a-trojan.html) that, when used in an installation script, can easily be installed and gain access to the whole system.
 
