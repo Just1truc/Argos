@@ -4,7 +4,7 @@ import axios from "axios";
 import "../style/ShellScrean.css";
 
 const ShellScrean = (props: any): JSX.Element => {
-    const prompt_logo = "$>  ";
+    const prompt_logo = ((props.sudo) ? "sudo" : "user") + "$> ";
  
     const histo = props.history.map((item: any, index: number) => {
         return (
@@ -23,7 +23,7 @@ const ShellScrean = (props: any): JSX.Element => {
                 </div>
                 <div className="prompt--cmd">
                     <span className="prompt--cmd--user" onClick={props.HandleSudo}>@{props.sudo ? "Sudo" : "User"}</span>
-                    <input type="text" value={props.prompt} onChange={(e) => props.Handleprompt(e.target.value)} />
+                    <input type="text" value={props.prompt} onChange={(e) => props.Handleprompt(e.target.value)} onKeyDown={(e) => props.launchCmd(e)} />
                 </div>
             </div>
         </main>

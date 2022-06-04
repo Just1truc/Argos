@@ -38,7 +38,6 @@ const Router = (): JSX.Element => {
                     <Navigate to="/clients"/>
                     :
                     <Login setConnection={() => setConnected(true)} />} />
-                <Route path="/shell" element={<Shell />} />
                 <Route path="/clients" element={(setUp() === true) ?
                     <Client />
                     :
