@@ -197,7 +197,7 @@ kill [pid]
       </a>
     </td>
     <td align="center">
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <a href="https://youtu.be/S7dbdC8e5cQ?t=43">
         <img src="https://cdn.discordapp.com/attachments/899334925206040606/983147821249200158/unknown.png" width="100px;" alt=""/>
       </a>
       <br />
@@ -205,10 +205,10 @@ kill [pid]
         <b>Paul Laban</b>
         <p>Frontend Developper</p>
       </sub>
-      <a href="https://www.youtube.com/watch?v=cvh0nX08nRw" title="GitHub">
+      <a href="https://youtu.be/S7dbdC8e5cQ?t=43" title="GitHub">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
       </a>&nbsp;
-      <a href="https://www.youtube.com/watch?v=S7dbdC8e5cQ" title="LinkedIn">
+      <a href="https://youtu.be/S7dbdC8e5cQ?t=43" title="LinkedIn">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
       </a>
     </td>
