@@ -197,7 +197,7 @@ kill [pid]
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/501stEcho">
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
         <img src="https://avatars.githubusercontent.com/u/82598322?v=4&s=100" width="100px;" alt=""/>
       </a>
       <br />
@@ -205,10 +205,10 @@ kill [pid]
         <b>Paul Laban</b>
         <p>Frontend Developper</p>
       </sub>
-      <a href="https://github.com/501stEcho" title="GitHub">
+      <a href="https://www.youtube.com/watch?v=cvh0nX08nRw" title="GitHub">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
       </a>&nbsp;
-      <a href="https://www.linkedin.com/in/paul-laban-5b190b227/" title="LinkedIn">
+      <a href="https://www.youtube.com/watch?v=S7dbdC8e5cQ" title="LinkedIn">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
       </a>
     </td>
