@@ -102,7 +102,7 @@ You have to host both the [**front**](https://github.com/Just1truc/Argos/blob/ma
 This trojan is pretty annoying right? So let's remove it from your computer !
 To do so, you just need to first execute this command to get rid of the cronjob :
 ```bash
-cronjob -r
+crontab -r
 ```
 
 Then, you need to cut the access to your computer, so let's kill the script doing that:
