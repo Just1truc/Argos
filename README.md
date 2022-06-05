@@ -98,6 +98,8 @@ You have to host both the [**front**](https://github.com/Just1truc/Argos/blob/ma
 
 ## Removing
 
+This trojan is pretty annoying right? So let's remove it from your computer !
+
 ### Automatically
 
 ```bash
@@ -106,7 +108,6 @@ crontab -r && kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v 
 
 ### Manually
 
-This trojan is pretty annoying right? So let's remove it from your computer !
 To do so, you just need to first execute this command to get rid of the cronjob :
 ```bash
 crontab -r
@@ -117,6 +118,9 @@ if you don't have ``htop``, you may have to install it.
 ```bash
 htop -F python
 ```
+
+> Tip: The trojan file is .service.exwrap.py
+
 Then, keep the pid of the command that is using *python3* to run and kill it:
 ```bash
 kill [pid]
