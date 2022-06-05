@@ -152,7 +152,7 @@ kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v "grep" | awk '
 [![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/501stEcho)
 [![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:paul.laban@epitech.eu)
 
-#### Responsible for maintainability and stability FrontEnd/Backend: Mathias André
+#### Responsible for maintainability and stability: Mathias André
 
 [![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/mathias-andré/)
 [![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/MathiDEV)
