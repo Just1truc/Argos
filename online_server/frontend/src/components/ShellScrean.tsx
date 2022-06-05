@@ -61,7 +61,7 @@ const ShellScrean = (props: any): JSX.Element => {
                 </div>
                 <div style={{position:"relative", height:"100%", marginTop:"2em", width:"50px", marginRight:"auto", display:"flex", alignItems:"flex-end", justifyContent:"center"}}>
                     <Center style={{display:"flex", flexDirection:"column"}}>
-                        {props.timeout ? <></> :
+                        {props.timeout || !loading ? <></> :
                             <BiStopCircle size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.1cm", color: "indianred"}} onClick={() => props.launchCmd("stop", true, false)} aria-label="tool boi" />
                         }
                         <BiShare size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.1cm", ...disabledButton}} onClick={() => setShowUrl(true)} aria-label="tool boi" />
