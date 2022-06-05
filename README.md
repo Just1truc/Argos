@@ -1,5 +1,5 @@
 <p align="center">
-  <img height=150 src="https://github.com/Just1truc/Argos/blob/main/assets/top.png?raw=true">
+  <img src="https://github.com/Just1truc/Argos/blob/main/assets/top.png?raw=true">
   <br>
   <i>Can see everything, beware of its omniscience, kneel before its greatness.</i>
 </p>
