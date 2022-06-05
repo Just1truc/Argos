@@ -3,6 +3,7 @@ import { Box, Center, Text } from "@chakra-ui/react";
 import { IconBase} from "react-icons";
 import { BiCollapse } from "react-icons/bi";
 import { useColorModeValue } from "@chakra-ui/react";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const PopUp = (props: any): JSX.Element => {
     const bg = useColorModeValue("gray.200", "gray.800");
@@ -16,8 +17,8 @@ const PopUp = (props: any): JSX.Element => {
                         </Text>
                     </Center>
                     <Box as="button" style={{marginRight:"1cm"}} onClick={() => props.closePopUp()} >
-                        <IconBase size={35} >
-                            <BiCollapse size="100%" />
+                        <IconBase size={40} >
+                            <AiOutlineCloseCircle size="100%" />
                         </IconBase>
                     </Box>
                 </Box>

@@ -1,12 +1,17 @@
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
-import { Center, Flex, Tooltip } from '@chakra-ui/react';
+import { Center, Flex, Tooltip, Box, Text, Input, Button } from '@chakra-ui/react';
 import { BiFolderOpen, BiPowerOff, BiShare, BiStopCircle } from "react-icons/bi";
+import { AiOutlineApple, AiFillChrome } from "react-icons/ai";
+import { FaSafari } from "react-icons/fa";
+import { DiLinux, DiFirefox } from "react-icons/di";
 import { useState } from 'react';
 import "../style/ShellScrean.css";
 import { IconButton, Spinner } from '@chakra-ui/react';
 import Navbar from './Navbar';
 import PopUp from './popUp';
-
+import { Item } from 'framer-motion/types/components/Reorder/Item';
+import { useColorModeValue } from '@chakra-ui/react';
+import SendUrl from './SendUrl';
 
 const ShellScrean = (props: any): JSX.Element => {
     const prompt_logo = "$> ";
@@ -71,10 +76,12 @@ const ShellScrean = (props: any): JSX.Element => {
                 </div>
             </main>
             <PopUp show={showUrl} closePopUp={() => setShowUrl(false)} title={"Send a Internet page"} >
-                <h1>UrlBox</h1>
+                <SendUrl launchCmd={props.launchCmd} />
             </PopUp>
             <PopUp show={showFolder} closePopUp={() => setShowFolder(false)} title={"Open the folder"} >
-                <h1>Folder</h1>
+                <Box borderTop={10} border={"solid 0.4px"} marginLeft={"1cm"} marginRight={"1cm"} marginTop={"1cm"} height={"80%"}>
+
+                </Box>
             </PopUp>
         </>
     );
