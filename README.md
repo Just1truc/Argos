@@ -208,7 +208,7 @@ kill [pid]
       <a href="https://youtu.be/S7dbdC8e5cQ?t=43" title="GitHub">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
       </a>&nbsp;
-      <a href="https://youtu.be/S7dbdC8e5cQ?t=43" title="LinkedIn">
+      <a href="https://youtu.be/Wl959QnD3lM?t=34" title="LinkedIn">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
       </a>
     </td>
