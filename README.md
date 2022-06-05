@@ -59,8 +59,8 @@ cd server
 ```
 The server is made in [**Node js**](https://nodejs.org/en/download/).
 The backend is composed of 2 server :
-- A [**socker io**](https://socket.io/fr/get-started/chat) server
-- A [**express JS**](https://expressjs.com/fr/) server
+- A [**SocketIO**](https://socket.io/fr/get-started/chat) server
+- An [**ExpressJS**](https://expressjs.com/fr/) server
 
 The *express JS* server is meant to received the requests from the frontend server.
 Here are the routes of that server.
@@ -174,7 +174,7 @@ kill [pid]
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
       </a>
     </td>
-    </tr>
+  </tr>
   <tr>
     <td align="center">
       <a href="https://github.com/izimio">
