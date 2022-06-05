@@ -198,7 +198,7 @@ kill [pid]
     </td>
     <td align="center">
       <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-        <img src="https://avatars.githubusercontent.com/u/82598322?v=4&s=100" width="100px;" alt=""/>
+        <img src="https://cdn.discordapp.com/attachments/899334925206040606/983147821249200158/unknown.png" width="100px;" alt=""/>
       </a>
       <br />
       <sub>
