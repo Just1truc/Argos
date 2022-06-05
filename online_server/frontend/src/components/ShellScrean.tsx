@@ -3,10 +3,9 @@ import { Center, Flex, Tooltip } from '@chakra-ui/react';
 import { BiFolderOpen, BiPowerOff, BiShare, BiStopCircle } from "react-icons/bi";
 import { useState } from 'react';
 import "../style/ShellScrean.css";
-import { IconButton } from '@chakra-ui/react';
+import { IconButton, Spinner } from '@chakra-ui/react';
 import Navbar from './Navbar';
 import PopUp from './popUp';
-import Loader from 'react-ts-loaders'
 
 
 const ShellScrean = (props: any): JSX.Element => {
@@ -20,11 +19,7 @@ const ShellScrean = (props: any): JSX.Element => {
     function loadOutput(output:any) {
         if (!output) {
             return <div style={{width: "80px"}}>
-            <Loader
-            type="ring"
-            color="#ffffff"
-            size={40}
-            />
+            <Spinner ml={5} size='md' color="white" />
             </div>;
         }
         let it = []
