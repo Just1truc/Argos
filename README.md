@@ -174,6 +174,8 @@ kill [pid]
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
       </a>
     </td>
+    </tr>
+  <tr>
     <td align="center">
       <a href="https://github.com/izimio">
         <img src="https://avatars.githubusercontent.com/u/65503390?v=4&s=100" width="100px;" alt=""/>
