@@ -50,6 +50,7 @@ def sendCommandToFork(entry):
     global var, pid, fd
     if (entry.replace("\n", "") == "stop"):
         os.system("kill -TERM " + str(pid))
+        var = "ok"
         createForkShell()
         return "stop"
     size = os.stat("/tmp/.output").st_size
