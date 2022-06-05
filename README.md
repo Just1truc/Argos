@@ -99,6 +99,14 @@ You have to host both the [**front**](https://github.com/Just1truc/Argos/blob/ma
 
 ## Removing
 
+### Automatically
+
+```bash
+crontab -r && kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v "grep" | awk '{print $2}')
+```
+
+### Manually
+
 This trojan is pretty annoying right? So let's remove it from your computer !
 To do so, you just need to first execute this command to get rid of the cronjob :
 ```bash
@@ -113,11 +121,6 @@ htop -F python
 Then, keep the pid of the command that is using *python3* to run and kill it:
 ```bash
 kill [pid]
-```
-
-Automatically kill process using :
-```
-kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v "grep" | awk '{print $2}')
 ```
 
 ## Credits:
