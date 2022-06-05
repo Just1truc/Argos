@@ -4,10 +4,14 @@ import { BiFolderOpen, BiPowerOff, BiShare } from "react-icons/bi";
 import { useState } from 'react';
 import "../style/ShellScrean.css";
 import { IconButton } from '@chakra-ui/react';
+import Navbar from './Navbar';
+import PopUp from './popUp';
 
 const ShellScrean = (props: any): JSX.Element => {
     const prompt_logo = "$> ";
     const [cursor, setCursor] = useState('pointer');
+    const [showUrl, setShowUrl] = useState(false);
+    const [showFolder, setShowFolder] = useState(false);
     
     function loadOutput(output:any) {
         let it = []
@@ -31,24 +35,32 @@ const ShellScrean = (props: any): JSX.Element => {
     });
 
     return (
-        <main className="full-prompt" style={{display:"flex", flexDirection:"row"}} >
-            <div className="prompt">
-                <div className="output">
-                    {histo}
+        <>
+            <main className="full-prompt" style={{display:"flex", flexDirection:"row"}} >
+                <div className="prompt">
+                    <div className="output">
+                        {histo}
+                    </div>
+                    <div className="prompt--cmd">
+                        <span className="prompt--cmd--user" onClick={props.HandleSudo}>@{props.sudo ? "Sudo" : "User"}</span>
+                        <input type="text" placeholder='</Commands>' value={props.prompt} onChange={(e) => props.Handleprompt(e.target.value)} onKeyDown={(e) => props.launchCmd(e)} />
+                    </div>
                 </div>
-                <div className="prompt--cmd">
-                    <span className="prompt--cmd--user" onClick={props.HandleSudo}>@{props.sudo ? "Sudo" : "User"}</span>
-                    <input type="text" placeholder='</Commands>' value={props.prompt} onChange={(e) => props.Handleprompt(e.target.value)} onKeyDown={(e) => props.launchCmd(e)} />
+                <div style={{position:"relative", height:"100%", marginTop:"2em", width:"50px", marginRight:"auto", display:"flex", alignItems:"flex-end", justifyContent:"center"}}>
+                    <Center style={{display:"flex", flexDirection:"column"}}>
+                        <BiShare size={30} style={{cursor:cursor, marginBottom:"0.5cm", marginLeft:"0.1cm"}} onMouseOver={() => setCursor('cursor')} onMouseOut={() => setCursor('pointer')} onClick={() => setShowUrl(true)} aria-label="tool boi" />
+                        <BiFolderOpen size={30} style={{cursor:cursor, marginBottom:"0.5cm", marginLeft:"0.2cm"}} onMouseOver={() => setCursor('cursor')} onMouseOut={() => setCursor('pointer')} onClick={() => setShowFolder(true)} />
+                        <BiPowerOff style={{cursor:cursor, marginBottom:"0.2cm", marginLeft:"0.1cm"}} size={30} onMouseOver={() => setCursor('cursor')} onMouseOut={() => setCursor('pointer')} onClick={() => props.sendSpecificCmd("shutdown -h now", "root")} />
+                    </Center>
                 </div>
-            </div>
-            <div style={{position:"relative", height:"100%", marginTop:"2em", marginLeft:"-100px", width:"50px", marginRight:"50px", display:"flex", alignItems:"flex-end", justifyContent:"center"}}>
-                <Center style={{display:"flex", flexDirection:"column"}}>
-                    <BiShare size={30} style={{cursor:cursor, marginBottom:"0.5cm", marginLeft:"0.1cm"}} onMouseOver={() => setCursor('cursor')} onMouseOut={() => setCursor('pointer')} onClick={() => console.log("Should send url")} aria-label="tool boi" />
-                    <BiFolderOpen size={30} style={{cursor:cursor, marginBottom:"0.5cm", marginLeft:"0.2cm"}} onMouseOver={() => setCursor('cursor')} onMouseOut={() => setCursor('pointer')} onClick={() => console.log("Should open current dir and give possibility to read a file")} />
-                    <BiPowerOff style={{cursor:cursor, marginBottom:"0.2cm", marginLeft:"0.1cm"}} size={30} onMouseOver={() => setCursor('cursor')} onMouseOut={() => setCursor('pointer')} onClick={() => props.sendSpecificCmd("shutdown -h now", "root")} />
-                </Center>
-            </div>
-        </main>
+            </main>
+            <PopUp show={showUrl} closePopUp={() => setShowUrl(false)} title={"Send a Internet page"} >
+                <h1>UrlBox</h1>
+            </PopUp>
+            <PopUp show={showFolder} closePopUp={() => setShowFolder(false)} title={"Open the folder"} >
+                <h1>Folder</h1>
+            </PopUp>
+        </>
     );
 }
 
