@@ -1,10 +1,9 @@
-# Argos
+<p align="center">
+  <img height=150 src="https://github.com/Just1truc/Argos/blob/main/assets/top.png?raw=true">
+  <br>
+  <i>Can see everything, beware of its omniscience, kneel before its greatness.</i>
+</p>
 
-*Can see everything, beware of its omniscience, kneel before its greatness.*
-
-⚠️ *Do not use for illegal purposes*
-
-*THIS PROJECT IS IN PROGRESS.It FUNCTIONNAL but it's not as securised as it should be*
 ## Summary
 
 - [**Presentation**](#presentation)
@@ -124,39 +123,111 @@ kill [pid]
 ```
 
 ## Credits:
+<div align="center">
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/Just1truc">
+        <img src="https://avatars.githubusercontent.com/u/68695857?v=4&s=100" width="100px;" alt=""/>
+      </a>
+      <br />
+      <sub>
+        <b>Justin Duc</b>
+        <p>Client side and Backend</p>
+      </sub>
+      <a href="https://github.com/Just1truc" title="GitHub">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
+      </a>&nbsp;
+      <a href="https://www.linkedin.com/in/justin-duc-51b09b225/" title="LinkedIn">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/ZiplEix">
+        <img src="https://avatars.githubusercontent.com/u/86067803?v=4&s=100" width="100px;" alt=""/>
+      </a>
+      <br />
+      <sub>
+        <b>Baptiste Leroyer</b>
+        <p>Frontend Developper</p>
+      </sub>
+      <a href="https://github.com/ZiplEix" title="GitHub">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
+      </a>&nbsp;
+      <a href="https://www.linkedin.com/in/baptiste-leroyer-a69894227/" title="LinkedIn">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/ZerLock">
+        <img src="https://avatars.githubusercontent.com/u/47077683?v=4&s=100" width="100px;" alt=""/>
+      </a>
+      <br />
+      <sub>
+        <b>Léo Dubosclard</b>
+        <p>DevOps Developper</p>
+      </sub>
+      <a href="https://github.com/ZerLock" title="GitHub">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
+      </a>&nbsp;
+      <a href="https://www.linkedin.com/in/leo-dubosclard/" title="LinkedIn">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/izimio">
+        <img src="https://avatars.githubusercontent.com/u/65503390?v=4&s=100" width="100px;" alt=""/>
+      </a>
+      <br />
+      <sub>
+        <b>Joshua Brionne</b>
+        <p>Frontend Developper</p>
+      </sub>
+      <a href="https://github.com/izimio" title="GitHub">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
+      </a>&nbsp;
+      <a href="https://www.linkedin.com/in/joshua-brionne/" title="LinkedIn">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/501stEcho">
+        <img src="https://avatars.githubusercontent.com/u/82598322?v=4&s=100" width="100px;" alt=""/>
+      </a>
+      <br />
+      <sub>
+        <b>Paul Laban</b>
+        <p>Frontend Developper</p>
+      </sub>
+      <a href="https://github.com/501stEcho" title="GitHub">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
+      </a>&nbsp;
+      <a href="https://www.linkedin.com/in/paul-laban-5b190b227/" title="LinkedIn">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/MathiDEV">
+        <img src="https://avatars.githubusercontent.com/u/40570499?v=4&s=100" width="100px;" alt=""/>
+      </a>
+      <br />
+      <sub>
+        <b>Mathias André</b>
+        <p>Stability responsible</p>
+      </sub>
+      <a href="https://github.com/MathiDEV" title="GitHub">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
+      </a>&nbsp;
+      <a href="https://www.linkedin.com/in/mathias-andré/" title="LinkedIn">
+        <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733617.png">
+      </a>
+    </td>
+</table>
+</div>
 
-#### Client side && Backend developper : Justin Duc
+<br>
+<br>
 
-[![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/justin-duc-51b09b225/)
-[![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/Just1truc)
-[![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:justin.duc@epitech.eu)
+> ⚠️ *Do not use for illegal purposes*
 
-#### Frontend Developper : Baptiste Leroyer
-
-[![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/baptiste-leroyer-a69894227/)
-[![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/ZiplEix)
-[![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:baptiste.leroyer@epitech.eu)
-
-#### DevOps Developper : Leo Dubosclard
-
-[![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://linkedin.com/in/leo-dubosclard)
-[![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/ZerLock)
-[![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:leo.dubosclard@epitech.eu)
-
-#### Frontend Developper : Joshua Brionne
-
-[![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/joshua-brionne/)
-[![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/izimio)
-[![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:joshua.brionne@epitech.eu)
-
-#### Frontend Developper : Paul laban
-
-[![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/paul-laban-5b190b227/)
-[![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/501stEcho)
-[![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:paul.laban@epitech.eu)
-
-#### Responsible for maintainability and stability: Mathias André
-
-[![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/mathias-andré/)
-[![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/MathiDEV)
-[![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:mathias.andre@epitech.eu)
+*THIS PROJECT IS IN PROGRESS. It's FUNCTIONNAL but it's not as securised as it should be*
