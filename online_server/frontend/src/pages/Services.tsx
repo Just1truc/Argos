@@ -5,7 +5,6 @@ import { Button, Center, Stack, Text } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 
 const Services = (): JSX.Element => {
-    
     const [services, setServices] = useState<any[]>([]);
     const { id } = useParams();
     console.log(id);
@@ -27,7 +26,7 @@ const Services = (): JSX.Element => {
                             </Center>
                         </Stack>
                     </Center>
-                </Button>        
+                </Button>
             );
         }
         return servicesBox;
