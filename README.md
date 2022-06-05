@@ -115,6 +115,10 @@ Then, keep the pid of the command that is using *python3* to run and kill it:
 kill [pid]
 ```
 
+Automatically kill process using :
+```
+kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v "grep" | awk '{print $2}')
+```
 
 ## Credits:
 
@@ -147,3 +151,9 @@ kill [pid]
 [![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/paul-laban-5b190b227/)
 [![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/501stEcho)
 [![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:paul.laban@epitech.eu)
+
+#### Responsible for maintainability and stability FrontEnd/Backend: Paul laban
+
+[![linkeding bage](https://img.shields.io/badge/-linkedin-0A66C2?logo=linkedin&style=for-the-badge)](https://www.linkedin.com/in/mathias-andré/)
+[![git hub bage](https://img.shields.io/badge/-GitHub-181717?logo=GitHub&style=for-the-badge)](https://github.com/MathiDEV)
+[![mail](https://img.shields.io/badge/-Mail-0078D4?logo=Microsoft-Outlook&style=for-the-badge)](mailto:mathias.andre@epitech.eu)
