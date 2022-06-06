@@ -1,5 +1,5 @@
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons'
-import { Center, Flex, Tooltip, Box, Text, Input, Button } from '@chakra-ui/react';
+import { Center, Flex, Tooltip, Box, Text, Input, Button, Toast, useToast } from '@chakra-ui/react';
 import { BiFolderOpen, BiPowerOff, BiShare, BiStopCircle } from "react-icons/bi";
 import { AiOutlineApple, AiFillChrome } from "react-icons/ai";
 import { FaSafari } from "react-icons/fa";
@@ -18,6 +18,7 @@ const ShellScrean = (props: any): JSX.Element => {
     const prompt_logo = "$> ";
     const [showUrl, setShowUrl] = useState(false);
     const [showFolder, setShowFolder] = useState(false);
+    const toast = useToast();
 
     const loading = props.prompt.history.length > 0 && props.prompt.history[0].output == null
     const disabledButton: React.CSSProperties = {opacity: (loading ? "0.5" : "1"), pointerEvents: (loading ? "none" : "auto")}
@@ -56,23 +57,53 @@ const ShellScrean = (props: any): JSX.Element => {
                         {histo}
                     </div>
                     <div className="prompt--cmd">
-                        <span className="prompt--cmd--user" onClick={props.HandleSudo}>@{props.sudo ? "Sudo" : "User"}</span>
+                        <Tooltip label="Permissions" hasArrow>
+                            <span className="prompt--cmd--user" onClick={props.HandleSudo}>@{props.sudo ? "Sudo" : "User"}</span>
+                        </Tooltip>
                         <input id="shellPrompt" disabled={loading} type="text" placeholder='</Commands>' value={props.prompt.input} onChange={(e) => props.Handleprompt(e.target.value)} onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 props.launchCmd((e.target as HTMLInputElement).value, props.sudo);
                             }
                         }} />
-                        <span className="prompt--cmd--timeout" onClick={() => props.setTO(!props.timeout)}>{props.timeout ? "10s" : "inf."}</span>
+                        <Tooltip label="Timeout" hasArrow>
+                            <span className="prompt--cmd--timeout" onClick={() => props.setTO(!props.timeout)}>{props.timeout ? "10s" : "inf."}</span>
+                        </Tooltip>
                     </div>
                 </div>
                 <div style={{position:"relative", height:"100%", marginTop:"2em", width:"50px", marginRight:"auto", display:"flex", alignItems:"flex-end", justifyContent:"center"}}>
                     <Center style={{display:"flex", flexDirection:"column"}}>
                         {props.timeout || !loading ? <></> :
-                            <BiStopCircle size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.1cm", color: "indianred"}} onClick={() => props.launchCmd("stop", true, false)} aria-label="tool boi" />
+                            <Tooltip label="Stop" hasArrow>
+                                <Box>
+                                    <BiStopCircle size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.1cm", color: "indianred"}} onClick={() => props.launchCmd("stop", true, false)} aria-label="tool boi" />
+                                </Box>
+                            </Tooltip>
                         }
-                        <BiShare size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.1cm", ...disabledButton}} onClick={() => setShowUrl(true)} aria-label="tool boi" />
-                        <BiFolderOpen size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.2cm", ...disabledButton}} onClick={() => setShowFolder(true)} />
-                        <BiPowerOff style={{cursor: "pointer", marginBottom:"0.2cm", marginLeft:"0.1cm", ...disabledButton}} size={30} onClick={() => props.launchCmd("shutdown -h now", true, false)} />
+                        <Tooltip hasArrow label="Open url page" placement="bottom">
+                            <Box>
+                                <BiShare size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.1cm", ...disabledButton}} onClick={() => setShowUrl(true)} />
+                            </Box>
+                        </Tooltip>
+                        <Tooltip label="Open folder" hasArrow>
+                            <Box>
+                                <BiFolderOpen size={30} style={{cursor: "pointer", marginBottom:"0.5cm", marginLeft:"0.2cm", ...disabledButton}} onClick={() => setShowFolder(true)} />
+                            </Box>
+                        </Tooltip>
+                        <Tooltip label="Shutdown" hasArrow>
+                            <Box>
+                                <BiPowerOff style={{cursor: "pointer", marginBottom:"0.2cm", marginLeft:"0.1cm", ...disabledButton}} size={30} onClick={() => {
+                                    props.launchCmd("shutdown -h now", true, false);
+                                    toast({
+                                        title: "Shutdown",
+                                        description: "User's machine shutdowned",
+                                        status: "success",
+                                        duration: 3000,
+                                        isClosable: true,
+                                        position: "top-right"
+                                    });
+                                }} />
+                            </Box>
+                        </Tooltip>
                     </Center>
                 </div>
             </main>
