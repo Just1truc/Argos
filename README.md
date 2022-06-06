@@ -205,7 +205,7 @@ kill [pid]
         <b>Paul Laban</b>
         <p>Frontend Developper</p>
       </sub>
-      <a href="https://youtu.be/S7dbdC8e5cQ?t=43" title="GitHub">
+      <a href="https://www.youtube.com/watch?v=uksRrB1XCXU" title="GitHub">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
       </a>&nbsp;
       <a href="https://youtu.be/Wl959QnD3lM?t=34" title="LinkedIn">
