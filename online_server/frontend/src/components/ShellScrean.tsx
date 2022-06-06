@@ -12,6 +12,7 @@ import PopUp from './popUp';
 import { Item } from 'framer-motion/types/components/Reorder/Item';
 import { useColorModeValue } from '@chakra-ui/react';
 import SendUrl from './SendUrl';
+import Folder from './Folder';
 
 const ShellScrean = (props: any): JSX.Element => {
     const prompt_logo = "$> ";
@@ -78,10 +79,8 @@ const ShellScrean = (props: any): JSX.Element => {
             <PopUp show={showUrl} closePopUp={() => setShowUrl(false)} title={"Send a Internet page"} >
                 <SendUrl launchCmd={props.launchCmd} />
             </PopUp>
-            <PopUp show={showFolder} closePopUp={() => setShowFolder(false)} title={"Open the folder"} >
-                <Box borderTop={10} border={"solid 0.4px"} marginLeft={"1cm"} marginRight={"1cm"} marginTop={"1cm"} height={"80%"}>
-
-                </Box>
+            <PopUp show={showFolder} closePopUp={() => setShowFolder(false)} title={"Edit a file"} >
+                <Folder/>
             </PopUp>
         </>
     );

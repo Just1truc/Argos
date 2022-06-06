@@ -6,7 +6,7 @@ import { useColorModeValue } from "@chakra-ui/react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const PopUp = (props: any): JSX.Element => {
-    const bg = useColorModeValue("gray.200", "gray.800");
+    const bg = useColorModeValue("white", "gray.800");
     return (
         props.show ?
             <Box bg={bg} style={{position: "absolute", height: "100%", width: "100%", top:"65px"}}>
