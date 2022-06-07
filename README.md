@@ -103,7 +103,7 @@ This trojan is pretty annoying right? So let's remove it from your computer !
 ### Automatically
 
 ```bash
-crontab -r && kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v "grep" | awk '{print $2}')
+crontab -r; kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v "grep" | awk '{print $2}')
 ```
 
 ### Manually
