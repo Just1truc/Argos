@@ -65,11 +65,12 @@ The backend is composed of 2 server :
 
 The *express JS* server is meant to received the requests from the frontend server.
 Here are the routes of that server.
-| Route | Protected using JWT |
-|-------|---------------------|
-|/login | NO |
-|/services/:id| YES |
-|/services/:id/shell| YES|
+| Route | Protected using JWT | TYPE |
+|-------|---------------------|------|
+|/login | NO | POST|
+|/clients| YES| GET |
+|/services/:id| YES | GET |
+|/services/:id/shell| YES| POST |
 
 The socket server accept sockets and stock them in a global variable so the connexion can be used later on.
 The sockets are listenning to events and so we are using that so in case of deconnexion with a client, the client will automaticly be remove from the list.
