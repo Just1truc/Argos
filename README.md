@@ -91,7 +91,7 @@ Client OS:
 |----|--------------|
 |Windows|❌|
 |Debian based|✅|
-|Fedora Based|✅|
+|Fedora|✅|
 |Arch|❌|
 
 ## Installation
