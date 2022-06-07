@@ -7,6 +7,7 @@
 ## Summary
 
 - [**Presentation**](#presentation)
+- [**Compatibility**](#compatibility)
 - [**Installation**](#installation)
 - [**Removing**](#removing)
 - [**Credits**](#credits)
@@ -82,6 +83,16 @@ FrontEnd endpoints:
 |/clients  | YES       |
 |/services/:id| YES    |
 |/services/:id/shell| YES |
+
+## Compatibility
+
+Client OS:
+| OS | Compatible ? |
+|----|--------------|
+|Windows|❌|
+|Debian based|✅|
+|Fedora Based|✅|
+|Arch|❌|
 
 ## Installation
 
