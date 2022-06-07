@@ -1,4 +1,5 @@
-import { Box,
+import {
+    Box,
     Button,
     Center,
     Flex,
@@ -21,103 +22,148 @@ import { Box,
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { AiOutlineFile } from 'react-icons/ai';
+import { BsFileEarmark, BsFileEarmarkText, BsFileEarmarkZip, BsFolder, BsImage, BsX } from 'react-icons/bs';
 
-const Folder = (props: any) : JSX.Element => {
+import CodeEditor from '@uiw/react-textarea-code-editor';
+import { useColorModeValue, useColorMode } from '@chakra-ui/react';
+
+const Folder = (props: any): JSX.Element => {
     const [files, setFiles] = useState<String>("");
     const { id } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [file, setFile] = useState<String>("");
     const [fileContent, setFileContent] = useState<string>("");
     const [boxes, setBoxes] = useState<JSX.Element[]>([]);
+    const background = useColorModeValue('var(--chakra-colors-gray-50)', 'var(--chakra-colors-gray-600)');
+    const { colorMode, toggleColorMode } = useColorMode();
+    document.documentElement.setAttribute('data-color-mode', colorMode)
+
     const toast = useToast();
 
     function getFileContent(f: string) {
         return axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
-        {
-            command: `cat ${f}`,
-            perm: "root"
-        },
-        {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("user_token")}`
-            }
-        })
-        .then((res) => {
-            return [setFileContent(res.data)];
-        })
-        .catch((err) => {
-            toast({
-                title: 'Error',
-                description: err.data,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right'
-              })
-        });
+            {
+                command: `cat ${f}`,
+                perm: "root"
+            },
+            {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("user_token")}`
+                }
+            })
+            .then((res) => {
+                return [setFileContent(res.data)];
+            })
+            .catch((err) => {
+                toast({
+                    title: 'Error',
+                    description: err.data,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'top-right'
+                })
+            });
     }
 
     function sendModifiedContent() {
         return axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
-        {
-            command: `echo "${fileContent.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'")}" > ${file}`,
-            perm: "root"
-        },
-        {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("user_token")}`
-            }
-        })
-        .then((res) => {
-            toast({
-                title: 'Success',
-                description: "The file has been modified",
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right'
+            {
+                command: `echo "${fileContent.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'")}" > ${file}`,
+                perm: "root"
+            },
+            {
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem("user_token")}`
+                }
+            })
+            .then((res) => {
+                toast({
+                    title: 'Success',
+                    description: "The file has been modified",
+                    status: 'success',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'top-right'
+                });
+                return;
+            })
+            .catch((err) => {
+                toast({
+                    title: 'Error',
+                    description: err.data,
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                    position: 'top-right'
+                })
             });
-            return ;
-        })
-        .catch((err) => {
-            toast({
-                title: 'Error',
-                description: err.data,
-                status: 'error',
-                duration: 3000,
-                isClosable: true,
-                position: 'top-right'
-              })
-        });
     }
 
     function getBoxes(data: string) {
-        const output: JSX.Element[] = [];
-        let test : string[] = [];
-        data.split("\n").forEach((element: string) => {
-            if (element.replaceAll(" ", "").length > 0) {
-                test.push(element.replace("./", ""));
+        const file_formats = {
+            "directory": "directory",
+            "zip": "archive data",
+            "pdf": "PDF document",
+            "image": "image",
+            "text": "ASCII text",
+            "empty": "empty"
+        }
+        let files = data.split("\n");
+        let all_files = []
+        for (let i in files) {
+            let splitted = files[i].split(":");
+            if (splitted.length != 2) {
+                continue;
             }
-        });
-        for (let i of test) {
+            let file = {
+                name: splitted[0],
+                type: "noopen",
+                fulltype: splitted[1].trim()
+            }
+            let format: keyof typeof file_formats;
+            for (format in file_formats) {
+                const text = file_formats[format];
+                if (file.fulltype.includes(text)) {
+                    file.type = format;
+                    break;
+                }
+            }
+            all_files.push(file);
+        }
+        console.log(all_files);
+        const output: JSX.Element[] = [];
+        const file_icons = {
+            "directory": <BsFolder size={60} />,
+            "zip": <BsFileEarmarkZip size={60} />,
+            "pdf": <BsFileEarmark size={60} />,
+            "image": <BsImage size={60} />,
+            "text": <BsFileEarmarkText size={60} />,
+            "empty": <BsFileEarmark size={60} />,
+            "noopen": <BsX size={60} />
+        }
+        for (let i in all_files) {
+            const file = all_files[i];
+            const type: keyof typeof file_icons = (file.type as keyof typeof file_icons);
             output.push(
                 <WrapItem key={i}>
                     <Box margin="auto" marginLeft={"1cm"} marginTop="0.5cm">
                         <Button height={"80px"} width={"80px"} onClick={() => {
                             return [
-                            setFileContent(""),
-                            setFile(i),
-                            getFileContent(i),
-                            onOpen()
+                                setFileContent(""),
+                                setFile(file.name),
+                                getFileContent(file.name),
+                                onOpen()
                             ]
-                            }}>
+                        }}>
                             <Center>
-                                <AiOutlineFile size={60}/>
+                                {
+                                file_icons[type]
+                                }
                             </Center>
                         </Button>
-                        <Text width={"80px"} marginTop="0.2cm" >
-                            {i}
+                        <Text width={"80px"} marginTop="0.2cm" whiteSpace={"nowrap"} overflow={"hidden"} >
+                            {file.name}
                         </Text>
                     </Box>
                 </WrapItem>
@@ -128,8 +174,8 @@ const Folder = (props: any) : JSX.Element => {
 
     function getFiles() {
         axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`, {
-            command: "bash -c \"file * | grep ':.* text' | cut -d : -f 1\"",
-            perm : "root"
+            command: "bash -c \"file *\"",
+            perm: "root"
         }, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("user_token")}`
@@ -152,24 +198,35 @@ const Folder = (props: any) : JSX.Element => {
                     {boxes}
                 </Wrap>
             </Box>
-            
-            <Modal isOpen={isOpen} onClose={onClose} size={"full"} >
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Edit: {file}</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <Textarea value={fileContent} placeholder="Text.." onChange={(e) => setFileContent(e.target.value)} height={"100%"} width={"100%"} >
-                    </Textarea>
-                </ModalBody>
 
-                <ModalFooter>
-                  <Button variant={"ghost"} mr={3} onClick={onClose}>
-                    Close
-                  </Button>
-                  <Button colorScheme={'green'} onClick={sendModifiedContent} >Modify</Button>
-                </ModalFooter>
-              </ModalContent>
+            <Modal isOpen={isOpen} onClose={onClose} size={"full"} >
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Edit: {file}</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <CodeEditor
+                            value={fileContent}
+                            language="js"
+                            placeholder="Please enter JS code."
+                            onChange={(e) => setFileContent(e.target.value)}
+                            padding={15}
+                            style={{
+                                borderRadius: "15px",
+                                backgroundColor: background,
+                                fontSize: 12,
+                                fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                            }}
+                        />
+                    </ModalBody>
+
+                    <ModalFooter>
+                        <Button variant={"ghost"} mr={3} onClick={onClose}>
+                            Close
+                        </Button>
+                        <Button colorScheme={'green'} onClick={sendModifiedContent} >Modify</Button>
+                    </ModalFooter>
+                </ModalContent>
             </Modal>
         </>
     )
