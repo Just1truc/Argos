@@ -2,8 +2,6 @@ import {
     Box,
     Button,
     Center,
-    Flex,
-    Stack,
     Text,
     Wrap,
     WrapItem,
@@ -24,11 +22,9 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { BsFileEarmark, BsFileEarmarkText, BsFileEarmarkZip, BsFolder, BsImage, BsX } from 'react-icons/bs';
 
-import CodeEditor from '@uiw/react-textarea-code-editor';
 import { useColorModeValue, useColorMode } from '@chakra-ui/react';
 
 const Folder = (props: any): JSX.Element => {
-    const [files, setFiles] = useState<String>("");
     const { id } = useParams();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [file, setFile] = useState<String>("");
@@ -40,10 +36,40 @@ const Folder = (props: any): JSX.Element => {
 
     const toast = useToast();
 
+    function chDir(f: string) {
+        axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`, {
+            command: `cd ${f.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'").replaceAll("(", "\\(").replaceAll(")", "\\)")}`,
+            perm: "user"
+        }, {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("user_token")}`
+            }
+        }).then((res) => {
+            toast({
+                title: "Success",
+                description: "Directory changed",
+                status: "success",
+                duration: 2000,
+                isClosable: true
+            });
+            getFiles();
+        })
+        .catch((err) => {
+            toast({
+                title: "Error",
+                description: err.response.data.message,
+                status: "error",
+                duration: 9000,
+                isClosable: true
+            });
+        });
+
+    }
+
     function getFileContent(f: string) {
         return axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
             {
-                command: `cat ${f}`,
+                command: `timeout 2s cat ${f.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'").replaceAll("(", "\\(").replaceAll(")", "\\)")}`,
                 perm: "root"
             },
             {
@@ -52,6 +78,13 @@ const Folder = (props: any): JSX.Element => {
                 }
             })
             .then((res) => {
+                toast({
+                    title: "File Content loaded",
+                    description: "File content loaded successfully",
+                    status: "success",
+                    duration: 2000,
+                    isClosable: true
+                });
                 return [setFileContent(res.data)];
             })
             .catch((err) => {
@@ -69,7 +102,7 @@ const Folder = (props: any): JSX.Element => {
     function sendModifiedContent() {
         return axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
             {
-                command: `echo "${fileContent.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'")}" > ${file}`,
+                command: `echo "${fileContent.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'")}" > ${file.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'").replaceAll("(", "\\(").replaceAll(")", "\\)")}`,
                 perm: "root"
             },
             {
@@ -106,10 +139,11 @@ const Folder = (props: any): JSX.Element => {
             "zip": "archive data",
             "pdf": "PDF document",
             "image": "image",
-            "text": "ASCII text",
+            "text": "text",
             "empty": "empty"
         }
         let files = data.split("\n");
+        files = [...files, ". : directory", ".. : directory"];
         let all_files = []
         for (let i in files) {
             let splitted = files[i].split(":");
@@ -131,7 +165,6 @@ const Folder = (props: any): JSX.Element => {
             }
             all_files.push(file);
         }
-        console.log(all_files);
         const output: JSX.Element[] = [];
         const file_icons = {
             "directory": <BsFolder size={60} />,
@@ -149,6 +182,8 @@ const Folder = (props: any): JSX.Element => {
                 <WrapItem key={i}>
                     <Box margin="auto" marginLeft={"1cm"} marginTop="0.5cm">
                         <Button height={"80px"} width={"80px"} onClick={() => {
+                            if (file.type === "directory")
+                                return chDir(file.name);
                             return [
                                 setFileContent(""),
                                 setFile(file.name),
@@ -162,7 +197,7 @@ const Folder = (props: any): JSX.Element => {
                                 }
                             </Center>
                         </Button>
-                        <Text width={"80px"} marginTop="0.2cm" whiteSpace={"nowrap"} overflow={"hidden"} >
+                        <Text width={"80px"} marginTop="0.2cm" >
                             {file.name}
                         </Text>
                     </Box>
@@ -205,19 +240,7 @@ const Folder = (props: any): JSX.Element => {
                     <ModalHeader>Edit: {file}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <CodeEditor
-                            value={fileContent}
-                            language="js"
-                            placeholder="Please enter JS code."
-                            onChange={(e) => setFileContent(e.target.value)}
-                            padding={15}
-                            style={{
-                                borderRadius: "15px",
-                                backgroundColor: background,
-                                fontSize: 12,
-                                fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-                            }}
-                        />
+                        <Textarea value={fileContent} onChange={(e) => setFileContent(e.target.value)} height={"100%"} />
                     </ModalBody>
 
                     <ModalFooter>

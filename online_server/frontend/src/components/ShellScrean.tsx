@@ -30,8 +30,9 @@ const ShellScrean = (props: any): JSX.Element => {
             </div>;
         }
         let it = []
+        let i = 0
         for (let item of output.split('\n'))
-            it.push(<p className="histo--output">{item}</p>);
+            it.push(<p className="histo--output" key={i++} >{item}</p>);
         return it;
     }
 

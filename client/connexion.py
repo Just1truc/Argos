@@ -59,7 +59,7 @@ def sendCommandToFork(entry):
     # Wait for end signal
     while (var == None): continue
     var = None
-    buffer = open("/tmp/.output", "r")
+    buffer = open("/tmp/.output", "r", encoding="utf-8", errors="ignore")
     buffer.seek(size)
     output = buffer.read().replace("\0", "")
     buffer.close()
