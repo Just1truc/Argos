@@ -67,9 +67,10 @@ const Folder = (props: any): JSX.Element => {
     }
 
     function getFileContent(f: string) {
+        const bash_command : string = f.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'").replaceAll("(", "\\(").replaceAll(")", "\\)");
         return axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
             {
-                command: `timeout 2s cat ${f.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'").replaceAll("(", "\\(").replaceAll(")", "\\)")}`,
+                command: `bash -c "if [ $(($(stat -c%s ${bash_command}) <= 1000000)) -eq 1 ]; then cat ${bash_command}; else echo 'File is too big'; fi"`,
                 perm: "root"
             },
             {

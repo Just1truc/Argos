@@ -32,32 +32,8 @@ const Shell = (props: any): JSX.Element => {
         setSudo(!sudo);
     };
 
-    // const sendSpecificCmd = (cmd: string, perm: string) => {
-    //     axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
-    //     {
-    //         "command" : String(cmd),
-    //         "perm" : perm
-    //     },
-    //     {
-    //         headers : {
-    //             "Authorization" : `Bearer ${localStorage.getItem("user_token")}`
-    //         }
-    //     }
-    //     )
-    //     .then((res: any) => {
-    //         setHistory([{
-    //             cmd: String(cmd),
-    //             output: res.data,
-    //             perm: (sudo) ? "sudo" : "user"
-    //         }, ...history]);
-    //     })
-    //     .catch((err: any) => {
-    //         console.log(err);
-    //     });
-    //     return;
-    // }
     const launchCmd = (command: string, sudo: boolean, history: boolean = true) => {
-        if (command.replaceAll(" ", "") == "clear") {
+        if (command.replaceAll(" ", "") === "clear") {
             setPrompt({
                 input: "",
                 history: []
@@ -118,7 +94,7 @@ const Shell = (props: any): JSX.Element => {
                 else if (err.response.status === 400)
                     window.location.href = "/clients";
             });
-    }, []);
+    },);
 
     return (
         <>
