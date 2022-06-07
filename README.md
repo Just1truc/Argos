@@ -139,6 +139,11 @@ kill [pid]
 
 ## Credits:
 <div align="center">
+<style>
+  .better {
+    margin-top:"15px"
+  }
+</style>
 <table>
   <tr>
     <td align="center">
@@ -148,7 +153,7 @@ kill [pid]
       <br />
       <sub>
         <b>Justin Duc</b>
-        <p>Client side and Backend</p>
+        <p class={.better} >Client side and Backend</p>
       </sub>
       <a href="https://github.com/Just1truc" title="GitHub">
         <img height=16 src="https://cdn-icons-png.flaticon.com/512/733/733609.png">
