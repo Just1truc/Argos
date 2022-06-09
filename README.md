@@ -94,6 +94,7 @@ Client OS:
 |Debian based|✅|
 |Fedora|✅|
 |Arch|❌|
+|Mac OS|❌|
 
 ## Installation
 
