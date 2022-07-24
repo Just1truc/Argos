@@ -1,0 +1,47 @@
+#!/bin/bash
+
+###################
+# One time client
+# [Version] : Linux
+# 20/07/2022
+###################
+
+yesOrNo=$'\033[0;32my\033[0;37m/\e[31mn\033[0;38m'
+
+echo "[Argos] You'll start Argos client"
+
+read -p "[Argos] Have you installed the dependencies? ($yesOrNo) " answer
+
+if ! [[ "$answer" == "y" || "$answer" == "Y" || "$answer" == "yes" || "$answer" == "" ]]
+then
+    echo "[Argos] Installing dependencies..."
+    pip install -r dependencies
+    if [ $? -ne 0 ]
+    then
+        tput setaf 1
+        echo "[Argos] Failling to install dependencies. Exiting"
+        tput sgr 0
+    fi
+    tput setaf 2
+    echo "[Argos] Dependencies installed"
+    tput sgr 0
+fi
+
+tput setaf 6
+echo "[Argos] Launching client..."
+tput sgr 0
+
+# SIGINT handler (Ctrl+c signal)
+
+function exiting () {
+    tput sgr 0
+    echo "[Argos] Exiting starter script..."
+    exit 1
+}
+
+trap exiting SIGINT
+
+python3 logged_client.py
+
+
+

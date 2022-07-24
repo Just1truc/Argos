@@ -21,7 +21,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     if (req.method === 'OPTIONS')
         res.status(200).send();
-    next();
+    else
+        next();
 });
 
 app.use('/', authRoutes);

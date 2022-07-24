@@ -10,9 +10,7 @@ import './theme/index.css';
 
 const root : any = document.getElementById('root');
 createRoot(root).render(
-	<React.StrictMode>
-		<ChakraProvider theme={theme} resetCSS>
-			<App />
-		</ChakraProvider>
-	</React.StrictMode>
+	<ChakraProvider theme={theme} resetCSS>
+		<App />
+	</ChakraProvider>
 );

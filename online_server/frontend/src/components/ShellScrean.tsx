@@ -24,7 +24,7 @@ const ShellScrean = (props: any): JSX.Element => {
     const disabledButton: React.CSSProperties = {opacity: (loading ? "0.5" : "1"), pointerEvents: (loading ? "none" : "auto")}
 
     function loadOutput(output:any) {
-        if (!output) {
+        if (output === null) {
             return <div style={{width: "80px"}}>
             <Spinner ml={5} size='md' color="white" />
             </div>;
@@ -44,7 +44,7 @@ const ShellScrean = (props: any): JSX.Element => {
                     <p style={{color:"white", marginLeft:"0.5em"}}>{item.cmd}</p>
                 </div>
                 <div style={{marginTop:"0.3em"}}>
-                {loadOutput(item.output)}
+                {loadOutput(item.output == null ? null : String(item.output))}
                 </div>
             </div>
         );
@@ -112,7 +112,7 @@ const ShellScrean = (props: any): JSX.Element => {
                 <SendUrl launchCmd={props.launchCmd} />
             </PopUp>
             <PopUp show={showFolder} closePopUp={() => setShowFolder(false)} title={"Edit a file"} >
-                <Folder/>
+                {showFolder ? <Folder/> : <></>}
             </PopUp>
         </>
     );

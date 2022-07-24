@@ -103,7 +103,7 @@ const Folder = (props: any): JSX.Element => {
     function sendModifiedContent() {
         return axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`,
             {
-                command: `echo "${fileContent.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'")}" > ${file.replaceAll("\"", "\\\"").replaceAll("\'", "\\\'").replaceAll("(", "\\(").replaceAll(")", "\\)")}`,
+                command: `bash -c "echo \\\"${fileContent.replaceAll("\"", "\\\\\\\"")}\\\" > ${file.replaceAll("\"", "\\\"").replaceAll("(", "\\(").replaceAll(")", "\\)")}"`,
                 perm: "root"
             },
             {
@@ -209,6 +209,7 @@ const Folder = (props: any): JSX.Element => {
     }
 
     function getFiles() {
+        console.log('Send file command');
         axios.post(`${process.env.REACT_APP_API_URL}/services/${id}/shell`, {
             command: "bash -c \"file *\"",
             perm: "root"
@@ -224,6 +225,7 @@ const Folder = (props: any): JSX.Element => {
     }
 
     useEffect(() => {
+        console.log("Getting files");
         getFiles();
     }, []);
 
