@@ -15,7 +15,7 @@
 
 #### Main goal
 
-This program was made to work on **Linux** distrubtion but will woon be adapted to **Windows**.
+This program was made to work on **Linux** distrubtion but will soon be adapted to **Windows**.
 
 The main goal of this project is to make a remote control interface to use with the **consent** of the person whose pc is controlled.
 
@@ -32,7 +32,7 @@ Get to the client part
 cd client/
 ```
 
-The client side program is made using [**python3**](https://www.python.org/downloads/).
+The client side program is made using [**python3**](https://www.python.org/).
 
 To start it you must have installed the dependencies. If you are too lazy to install them yourself, you can just use the *one_time* script present in client-side folders.
 
