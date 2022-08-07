@@ -3,3 +3,4 @@ websocket-client
 validators
 tk
 Pillow
+requests

@@ -19,7 +19,7 @@
     "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "framer-motion": "^6.3.8",
-    "nth-check": "^2.1.1",
+    "nth-check": "^2.0.1",
     "react": "^18.1.0",
     "react-bootstrap-icons": "^1.8.2",
     "react-dom": "^18.1.0",
@@ -27,6 +27,7 @@
     "react-icons": "^3.11.0",
     "react-jwt": "^1.1.6",
     "react-router-dom": "^6.3.0",
+    "react-script": "^2.0.5",
     "react-scripts": "^5.0.1",
     "typescript": "^4.7.2",
     "web-vitals": "^0.2.4"

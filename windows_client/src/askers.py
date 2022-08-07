@@ -1,57 +1,136 @@
-import tkinter, PIL
-import winsound
-from tkinter import *
-from tkinter import ttk
-from tkinter.ttk import Style
-from tkinter.messagebox import *
-from turtle import color
+""" Imports """
+## Importing tkinter as window manager ##
+from tkinter import Text, Frame, Button, Label, END, BOTH, Tk, Entry, W, FLAT, PhotoImage, WORD
+from tkinter.messagebox import showerror
+
+## Importing Pillow for image resizing ##
 from PIL import ImageTk, Image
+
+## Importing validators to check url ##
 import validators
-import os
-from src.server import start_server
+
+## Importing local packages ##
+from src.server_window import start_server
+from src.w_class import Window
 
 def destroy_win():
-    window.destroy()
+    """ Destroy window and quit the program properly """
+    WINDOW_MANAGER.destroy_window()
+    exit(1)
 
-def showPassword():
-    url = url_entry_point.get()
+def launch_server_w_args():
+    """ Middle function to start server with WindowManager as argument """
+    start_server(WINDOW_MANAGER)
+
+def test_url():
+    """ Test Url and continue program """
+
+    url = WINDOW_MANAGER.url_entry_point.get()
     print(url)
-    if (validators.url(url) != True):
+    if not validators.url(url):
         showerror('Oops', 'Url is invalid')
         return
 
-    WARNING_TEXT = f'Argos will give total access to you computer to the person possesing the server at the url : {url}. The commands that are run could badly damage your computer.'
+    WINDOW_MANAGER.add_element(url, "url")
+
+    warning_data = ('Argos will give total access to you computer to'
+    f'the person possesing the server at the url : {url}.'
+    'The commands that are run could badly damage your computer.')
 
     # Destroying old url label
 
-    url_entry_point.destroy()
-    url_label.destroy()
-    button.destroy()
+    WINDOW_MANAGER.destroy_element_list_by_name(elmn_list=[
+        "url_entry_point",
+        "url_label",
+        "button"
+    ])
 
     # Setting up new window
 
-    protection_alert = Label(master=frame, text="WARNING", fg="yellow", bg="#202020", font=('Roboto', '11', 'bold'))
-    protection_alert.grid(row=2, pady=5, padx=INSIDE_PADDING)
+    protection_alert = Label(
+        master=WINDOW_MANAGER.frame,
+        text="WARNING", fg="yellow",
+        bg="#202020",
+        font=('Roboto', '11', 'bold')
+    )
 
-    warning_text = Text(master=frame, fg="white", bg="#202020", font=('Roboto', '11', 'bold'), wrap=WORD, borderwidth=0, width=30, height=6)
-    warning_text.insert(END, WARNING_TEXT)
+    protection_alert.grid(
+        row=2,
+        pady=5,
+        padx=INSIDE_PADDING
+    )
+
+    WINDOW_MANAGER.add_element(protection_alert, "protection_alert")
+
+    warning_text = Text(
+        master=WINDOW_MANAGER.frame,
+        fg="white", bg="#202020",
+        font=('Roboto', '11', 'bold'),
+        wrap=WORD,
+        borderwidth=0,
+        width=30,
+        height=6
+    )
+
+    warning_text.insert(END, warning_data)
     warning_text.grid(row=3, pady=5, padx=INSIDE_PADDING)
+    WINDOW_MANAGER.add_element(warning_text, "warning_text")
 
     ## Setting up new validate or refuse button
 
-    inside_frame = Frame(master=frame, relief= 'sunken', bg="#202020")
+    inside_frame = Frame(master=WINDOW_MANAGER.frame, relief= 'sunken', bg="#202020")
     inside_frame.grid(row = 4, column = 0, pady = (30, 20 + BLOCK_PADDING))
-    
-    cancel_button = Button(master=inside_frame, bg="red", fg="#333333", text="Cancel", borderwidth=0, cursor="hand2", font=('Roboto', '11', 'bold'), command=destroy_win)
-    cancel_button.grid(row=0, column=0, ipadx = 10, ipady = 5, padx=5)
+    WINDOW_MANAGER.add_element(inside_frame, "inside_frame")
 
-    validate_button = Button(master=inside_frame, bg="lightgreen", fg="#333333", text="Accept", borderwidth=0, cursor="hand2", font=('Roboto', '11', 'bold'), command=start_server)
-    validate_button.grid(column=1, row = 0, ipadx = 10, ipady = 5, padx=5)
+    cancel_button = Button(
+        master=WINDOW_MANAGER.inside_frame,
+        bg="red",
+        fg="#333333",
+        text="Cancel",
+        borderwidth=0,
+        cursor="hand2",
+        font=('Roboto', '11', 'bold'),
+        command=destroy_win
+    )
 
-def askInfoWindow( Verify):
+    cancel_button.grid(
+        row=0,
+        column=0,
+        ipadx = 10,
+        ipady = 5,
+        padx=5
+    )
 
-    global url_entry_point
-    global window, frame, url_label, url_entry_point, INSIDE_PADDING, button, BLOCK_PADDING
+    WINDOW_MANAGER.add_element(cancel_button, "cancel_button")
+
+    validate_button = Button(
+        master=WINDOW_MANAGER.inside_frame,
+        bg="lightgreen",
+        fg="#333333",
+        text="Accept",
+        borderwidth=0,
+        cursor="hand2",
+        font=('Roboto', '11', 'bold'),
+        command=launch_server_w_args
+    )
+
+    validate_button.grid(
+        column=1,
+        row = 0,
+        ipadx = 10,
+        ipady = 5,
+        padx=5
+    )
+
+    WINDOW_MANAGER.add_element(validate_button, "validate_button")
+
+    WINDOW_MANAGER.center_window()
+
+def start_window(check_fun):
+    """ This function is the starting point of the program."""
+    ## It launch the window that will be used as a IHM ##
+
+    global WINDOW_MANAGER, INSIDE_PADDING, BLOCK_PADDING
 
     INSIDE_PADDING=50
 
@@ -59,32 +138,90 @@ def askInfoWindow( Verify):
 
     # Init window
     window = Tk()
-    window.title("Argos")
-    window.tk.call('wm', 'iconphoto', window._w, PhotoImage(file=f'../assets/ARG.png'))
+    WINDOW_MANAGER = Window(window)
+    WINDOW_MANAGER.window.title("Argos")
+    WINDOW_MANAGER.window.tk.call(
+        'wm',
+        'iconphoto',
+        WINDOW_MANAGER.window._w,
+        PhotoImage(file='../assets/ARG.png')
+    )
 
-    img = ImageTk.PhotoImage(Image.open(f'../assets/ARG.png').resize((100,100)))
+    img = ImageTk.PhotoImage(
+        Image
+        .open('../assets/ARG.png')
+        .resize((100,100))
+    )
 
     # frames
-    frame = Frame(window, bg="#202020", relief= 'sunken')
-    frame.pack(fill= BOTH, expand= True)
+    WINDOW_MANAGER.add_element(Frame(
+        window,
+        bg="#202020",
+        relief= 'sunken'),
+    "frame")
+    WINDOW_MANAGER.frame.pack(fill= BOTH, expand= True)
 
     # Init labels
 
-    img_label = Label(frame, image=img, bg="#202020").grid(row=0, pady=(BLOCK_PADDING,0))
+    img_label = Label(WINDOW_MANAGER.frame, image=img, bg="#202020")
+    img_label.grid(row=0, pady=(BLOCK_PADDING,0))
 
-    url_label = Label(frame, text="Server Url", fg="white", bg="#202020", font=('Roboto', '11', 'bold'))
+    WINDOW_MANAGER.add_element(img_label, "img_label")
 
-    url_label.grid(row=2, column=0, padx=INSIDE_PADDING, pady=5, sticky=W)
+    url_label = Label(
+        WINDOW_MANAGER.frame,
+        text="Server Url",
+        fg="white",
+        bg="#202020",
+        font=('Roboto', '11', 'bold')
+    )
+
+    url_label.grid(
+        row=2,
+        column=0,
+        padx=INSIDE_PADDING,
+        pady=5,
+        sticky=W
+    )
+
+    WINDOW_MANAGER.add_element(url_label, "url_label")
 
     url = ""
-    url_entry_point = Entry(frame, textvariable=url, bg ='#333333', fg='white', insertbackground="white", validate="none", selectborderwidth=0, borderwidth=10, relief=FLAT)
+    url_entry_point = Entry(
+        master=WINDOW_MANAGER.frame,
+        textvariable=url,
+        bg ='#333333',
+        fg='white',
+        insertbackground="white",
+        validate="none",
+        selectborderwidth=0,
+        borderwidth=10,
+        relief=FLAT
+    )
 
     url_entry_point.grid(row = 3, column = 0, padx=INSIDE_PADDING)
 
+    WINDOW_MANAGER.add_element(url_entry_point, "url_entry_point")
+
     # Validate Button
 
-    button = Button(frame, text='Validate', command = Verify, bg="lightgreen", borderwidth=0, cursor="hand2", font=('Roboto', '11', 'bold'))
+    button = Button(
+        master=WINDOW_MANAGER.frame,
+        text='Validate',
+        command = check_fun,
+        bg="lightgreen",
+        borderwidth=0,
+        cursor="hand2",
+        font=('Roboto', '11', 'bold')
+    )
     button.grid(row = 4, column = 0, ipadx = 10, ipady = 5, pady = (30, 20 + BLOCK_PADDING))
 
-    window.mainloop()
+    WINDOW_MANAGER.add_element(button, "button")
 
+    # center the window
+
+    WINDOW_MANAGER.center_window()
+
+    # main loop
+
+    WINDOW_MANAGER.window.mainloop()

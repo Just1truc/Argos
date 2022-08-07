@@ -1,7 +1,7 @@
 import { Center, Flex, Box, Text, Input, Button, useToast } from '@chakra-ui/react';
 import { AiOutlineApple, AiFillChrome } from "react-icons/ai";
 import { FaSafari } from "react-icons/fa";
-import { DiLinux, DiFirefox } from "react-icons/di";
+import { DiLinux, DiWindows } from "react-icons/di";
 import { useState } from 'react';
 import "../style/ShellScrean.css";
 
@@ -36,8 +36,7 @@ const SendUrl = (props: any) : JSX.Element => {
                 })
             return;
         }
-        console.log((os === "macOS" ? "open " : "xdg-open ") + url);
-        props.launchCmd((os === "macOS" ? "open " : "xdg-open ") + url, false, false);
+        props.launchCmd((os === "macOS" ? "open " : (os === "windows") ? "Start " : "xdg-open ") + url, false, false);
         toast({
             title: 'Success',
             description: "The url has been sent to the shell",
@@ -72,6 +71,11 @@ const SendUrl = (props: any) : JSX.Element => {
                     <Button height="70px" width="70px" marginLeft={"0.5cm"} onClick={() => setOs("linux")} >
                         <Center>
                             <DiLinux size={40} />
+                        </Center>
+                    </Button>
+                    <Button height="70px" width="70px" marginLeft={"0.5cm"} onClick={() => setOs("windows")} >
+                        <Center>
+                            <DiWindows size={40} />
                         </Center>
                     </Button>
                 </Flex>

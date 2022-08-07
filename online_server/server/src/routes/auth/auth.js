@@ -8,9 +8,9 @@ dotenv.config();
 
 function checkAuthRequest(req, res, next) {
     if (
-    tools.anyUndefined([req.body.username, req.body.password])
-    || req.body.username !== process.env.USERNAME
-    || req.body.password !== process.env.PASSWORD
+    tools.anyUndefined([req.body.username, req.body.password]) === true
+    || req.body.username !== process.env.ARGOS_USERNAME
+    || req.body.password !== process.env.ARGOS_PASSWORD
     )
         res
         .status(400)

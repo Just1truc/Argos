@@ -1,5 +1,5 @@
 
-from src.log_service import logService
+from src.logService import logService
 import os
 from getpass import getpass
 import validators
@@ -10,38 +10,38 @@ import validators
 # 20/07/2022
 ########################
 
-log_service = logService()
+logService = logService()
 
 def checkSudoPassword(password):
     return int(os.popen(f'echo "{password}" | sudo -Sk echo " " &> /dev/null; echo $?').read())
 
 def getSudoPassword():
-    log_service.info("Argos need the password of the user to work.")
-    log_service.warning("The password will not be keeped after the program stop running")
+    logService.info("Argos need the password of the user to work.")
+    logService.warning("The password will not be keeped after the program stop running")
     while 1:
-        password = getpass(log_service.ask_prompt("Please enter your sudo password :"))
+        password = getpass(logService.ask_prompt("Please enter your sudo password :"))
         if (checkSudoPassword(password) == 0):
             return password
         else:
-            log_service.error("Password is incorrect")
-            log_service.reset_colors()
+            logService.error("Password is incorrect")
+            logService.reset_colors()
 
 def getUrl():
     global SERVER_URL
-    log_service.info("Argos need the url of the backend server to know where to connect")
+    logService.info("Argos need the url of the backend server to know where to connect")
     while 1:
-        SERVER_URL = str(input(log_service.ask_prompt("Please enter the server url :")))
+        SERVER_URL = str(input(logService.ask_prompt("Please enter the server url :")))
         if (validators.url(SERVER_URL) != True):
-            log_service.error("This url is invalid. Please try another one")
+            logService.error("This url is invalid. Please try another one")
         else:
             return SERVER_URL
 
 def protectionCheck():
-    log_service.warning(f'Argos will give total access to you computer to the person possesing the server at the url : {SERVER_URL}.')
-    log_service.warning(f'The commands that are run could badly damage your computer.')
-    consent = input(log_service.yesorno_prompt(f'Do you accept to give total access ?') + ' (Default : yes) ')
+    logService.warning(f'Argos will give total access to you computer to the person possesing the server at the url : {SERVER_URL}.')
+    logService.warning(f'The commands that are run could badly damage your computer.')
+    consent = input(logService.yesorno_prompt(f'Do you accept to give total access ?') + ' (Default : yes) ')
     if not(consent == "yes" or consent == "yes" or consent == ""):
-        log_service.error("Exiting...")
+        logService.error("Exiting...")
         exit(1)
     else:
         return
