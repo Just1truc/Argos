@@ -2,7 +2,7 @@ window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\33661\\AppData\\Roaming",
   "APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL": "true",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_3876_MFVVXPYZGWAZNDBQ",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_6992_RMTMTNPFLJCWZXFF",
   "COLOR": "1",
   "COLORTERM": "truecolor",
   "CommonProgramFiles": "C:\\Program Files\\Common Files",

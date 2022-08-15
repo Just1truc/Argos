@@ -5,6 +5,7 @@ from winpty import PtyProcess
 import os
 from time import sleep, time
 import signal
+import re
 
 ## Signal handlers for sigint catch
 
@@ -22,6 +23,24 @@ def spawn_shell():
     """ Spawn new shell """
     return PtyProcess.spawn('powershell.exe')
 
+def check_sudo(cmd : str) -> str:
+    """ Check sudo """
+    return cmd.replace("echo $passwordForArgos | sudo -kS -p '' ", "")
+
+def replacing_data_get(cmd : str) -> str:
+    """ Replacing linux formated string into windows """
+    subexp = cmd.replace('bash -c \"if [ $(($(stat -c%s ', 'If ((Get-Item ').replace(') <= 1000000)) -eq 1 ]; then cat ', ').Length -le 10000) {cat ').replace('; else echo \'File is too big\'; fi\"', '} else {echo \'file too big!\'}')
+    return f'$({subexp})' if cmd != subexp else cmd
+
+def replacing_data_set(cmd : str) -> str:
+    """ Repalcing linux command for file modification """
+    print(cmd)
+    result = re.findall('/^bash -c \"echo \\\"\b(.+)\b\\\" > (.+)"/gm', cmd.replace('\r\n', '$[end]$').replace('\n', '$[end]$'))
+    if result is not None:
+        print(result)
+    #return cmd.replace('bash -c \"', '$(')[0:-1]+')' if cmd.startswith('bash -c \"echo') else cmd
+    return cmd
+
 def execute_cmd(cmd : str, window_manager : Window):
     """ Execute a command sent by the remote server """
     timeout : False | True = False
@@ -37,6 +56,17 @@ def execute_cmd(cmd : str, window_manager : Window):
         timeout = True
         cmd = cmd.replace("timeout 10s", "")
 
+    cmd = cmd.replace("shutdown -h now", "shutdown /s")
+
+    # Script is already launched as admin
+    cmd = check_sudo(cmd)
+
+    cmd = replacing_data_get(cmd=cmd)
+
+    cmd = replacing_data_set(cmd=cmd)
+
+    cmd = cmd.replace("bash -c \"file *\"", f'python3 {window_manager.program_start_asp}/src/file.py ./')
+
     open(f'{window_manager.program_start_asp}/done', 'w', encoding='utf-8', errors='ignore').write('')
     open(f'{window_manager.program_start_asp}/output', 'w', encoding='utf-8', errors='ignore').write('')
     window_manager.logs.info(f'Current pwd : {os.getcwd()}')
@@ -46,17 +76,23 @@ def execute_cmd(cmd : str, window_manager : Window):
 
     window_manager.logs.info(f'Command to be executed : {cmd}')
 
-    window_manager.ps.write(f'{cmd} 2>&1 > {window_manager.program_start_asp}/output; echo "done" > {window_manager.program_start_asp}/done\r\n')
-
+    #window_manager.ps.write(f'{cmd} 2>&1 > {window_manager.program_start_asp}/output; echo "done" > {window_manager.program_start_asp}/done\r\n')
+    window_manager.ps.write(f'{cmd} *>&1 | Out-File -Encoding utf8 {window_manager.program_start_asp}/output; echo "done" > {window_manager.program_start_asp}/done\r\n')
+    
+    timed_out = False
     while 1:
         if os.stat(f'{window_manager.program_start_asp}/done').st_size == 14:
             break
         if timeout and time() - timer_start > 10:
+            timed_out = True
             break
+
+    if timed_out:
+        return "Timed out after 10 seconds"
 
     window_manager.logs.success("Command finilized")
     result = open(f'{window_manager.program_start_asp}/output', 'r', encoding='utf-8', errors='ignore').read()
-    window_manager.logs.info("Received data : " + result.replace(' ', '')[0:15] + "...")
+    window_manager.logs.info("Received data : " + str(result).replace(' ', '')[0:15] + "...")
     return result
 
 ## Socket server function

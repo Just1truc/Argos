@@ -159,6 +159,7 @@ const Folder = (props: any): JSX.Element => {
             let format: keyof typeof file_formats;
             for (format in file_formats) {
                 const text = file_formats[format];
+                console.log(file.fulltype);
                 if (file.fulltype.includes(text)) {
                     file.type = format;
                     break;
